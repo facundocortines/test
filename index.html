@@ -3,454 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Cobranza Inteligente</title>
+    <title>Sistema de Automatización | [TU NOMBRE]</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        /* ESTILOS GENERALES */
+        /* --- VARIABLES & RESET --- */
         :root {
-            --primary: #3b82f6; /* Azul moderno */
-            --primary-dark: #1d4ed8;
-            --secondary: #10b981; /* Verde éxito */
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --text: #334155;
+            --bg-color: #050515;       /* Azul muy oscuro (casi negro) */
+            --card-bg: #0F0F25;        /* Un poco más claro para tarjetas */
+            --text-main: #FFFFFF;
+            --text-muted: #A0A0B0;
+            --accent-green: #00FF94;   /* Verde Neón Matrix */
+            --accent-orange: #FF9900;  /* Naranja para CTAs */
+            --border-color: #1F1F35;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--light);
-            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-            padding: 80px 0;
-            text-align: center;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .badge {
-            background-color: #dbeafe;
-            color: #1e40af;
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            color: var(--dark);
-            margin: 0 0 20px 0;
-            font-weight: 800;
-            letter-spacing: -1px;
-            line-height: 1.1;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: #64748b;
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-        }
-
-        /* BOTÓN DE DESCARGA */
-        .btn-main {
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-radius: 100px;
-            cursor: pointer;
-            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.4);
-            transition: all 0.3s ease;
+        /* --- UTILIDADES --- */
+        .text-green { color: var(--accent-green); }
+        .text-orange { color: var(--accent-orange); }
+        .text-center { text-align: center; }
+        .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            border: none;
         }
-
-        .btn-main:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 25px 30px -5px rgba(59, 130, 246, 0.5);
+        .btn-primary {
+            background-color: var(--accent-orange);
+            color: #000;
         }
-
-        .btn-main:active {
-            transform: translateY(0);
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent-green);
+            color: var(--accent-green);
         }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
 
-        /* SECCIÓN DE FLUJO VISUAL */
-        .workflow {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .section-header {
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 80px 0 60px;
             text-align: center;
-            margin-bottom: 60px;
+        }
+        .badge {
+            background: rgba(0, 255, 148, 0.1);
+            color: var(--accent-green);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 255, 148, 0.3);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
         }
 
-        .section-header h2 {
-            font-size: 2.2rem;
-            color: var(--dark);
-            margin-bottom: 10px;
-        }
-
-        .flow-grid {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+        /* --- COMPARISON (BEFORE/AFTER) --- */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-            flex-wrap: wrap;
+            margin: 40px 0;
         }
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .list-item {
+            display: flex;
+            align-items: start;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .icon-red { color: #FF4444; }
+        .icon-green { color: var(--accent-green); }
 
-        .flow-card {
-            flex: 1;
-            min-width: 200px;
-            max-width: 220px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 24px;
+        /* --- LOGIC VISUAL --- */
+        .logic-section {
+            padding: 60px 0;
             text-align: center;
+        }
+        .flowchart-placeholder {
+            background: #0A0A1F;
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            height: 300px; /* Ajustar según la imagen real */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
             position: relative;
-            transition: transform 0.3s;
+            overflow: hidden;
+        }
+        /* Simulación de imagen */
+        .flowchart-placeholder img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: left;
+        }
+        .step h3 { margin-bottom: 10px; font-size: 1.1rem; }
+        .step p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* --- DOWNLOAD SECTION --- */
+        .download-section {
+            background: linear-gradient(180deg, var(--bg-color) 0%, var(--card-bg) 100%);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            margin: 60px 0;
+        }
+        .code-block {
+            background: #000;
+            font-family: 'Fira Code', monospace;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 400px;
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            border: 1px solid #333;
+        }
+        .tech-warning {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 20px;
+            background: rgba(255, 153, 0, 0.1);
+            padding: 10px;
+            border-radius: 6px;
+            display: inline-block;
         }
 
-        .flow-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
+        /* --- PIVOT / SALES --- */
+        .pivot-section {
+            text-align: center;
+            padding: 60px 0;
+        }
+        .pivot-card {
+            border: 1px solid var(--accent-green);
+            background: rgba(0, 255, 148, 0.03);
+            border-radius: 16px;
+            padding: 40px;
         }
 
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            background: #eff6ff;
+        /* --- CAL.COM & FOOTER --- */
+        .cal-section { padding: 40px 0 80px; }
+        .cal-placeholder {
+            width: 100%;
+            height: 600px;
+            background: var(--card-bg);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 20px auto;
-            color: var(--primary);
+            color: var(--text-muted);
         }
-
-        .flow-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            color: var(--dark);
-        }
-
-        .flow-card p {
-            font-size: 0.9rem;
-            color: #64748b;
-        }
-
-        .arrow {
-            font-size: 2rem;
-            color: #cbd5e1;
-            margin-top: 40px;
-            font-weight: bold;
-        }
-
-        /* DETALLES TÉCNICOS */
-        .details {
-            background-color: var(--dark);
-            color: white;
-            padding: 80px 0;
-        }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .tech-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .tech-item h3 {
-            color: var(--primary); /* Azul brillante sobre fondo oscuro */
-            margin-top: 0;
-        }
-
-        .tech-item p {
-            color: #94a3b8;
-        }
-
-        /* FOOTER */
         footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
             text-align: center;
-            padding: 30px;
-            background: #020617;
-            color: #475569;
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        /* MEDIA QUERIES */
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .flow-grid { flex-direction: column; align-items: center; }
-            .arrow { transform: rotate(90deg); margin: 10px 0; }
+            .hero h1 { font-size: 2rem; }
+            .comparison, .steps-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <section class="hero">
-        <div class="container">
-            <span class="badge">Sistema Gratuito</span>
-            <h1>Seguimiento de facturas<br>que sí funciona</h1>
-            <p>Un sistema automatizado que conecta Google Sheets, Gmail y OpenAI para cobrar facturas pendientes sin perder la cordialidad.</p>
+    <nav style="padding: 20px 0; border-bottom: 1px solid var(--border-color);">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-weight: 700; font-size: 1.2rem;">TuMarca<span class="text-green">.ai</span></div>
+            <a href="#booking" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Agendar Llamada</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <section class="hero">
+            <div class="badge">🎁 Sistema de Automatización Gratuito</div>
+            <h1>[NOMBRE DEL RESULTADO DEL SISTEMA]<br><span class="text-green">Sin mover un dedo</span></h1>
+            <p>Elimina [DOLOR PRINCIPAL] y recupera [CANTIDAD HORAS] semanales implementando este flujo lógico.</p>
+            <a href="#download" class="btn btn-primary">
+                Descargar el Sistema <i data-lucide="download"></i>
+            </a>
+        </section>
+
+        <section class="comparison">
+            <div class="card" style="opacity: 0.7;">
+                <div class="card-header">
+                    <i data-lucide="x-circle" class="icon-red"></i>
+                    La Forma Manual
+                </div>
+                <div class="list-item">
+                    <i data-lucide="hourglass" size="18"></i>
+                    <span>Perder tiempo copiando y pegando datos.</span>
+                </div>
+                <div class="list-item">
+                    <i data-lucide="alert-triangle" size="18"></i>
+                    <span>Errores humanos y olvidos frecuentes.</span>
+                </div>
+                <div class="list-item">
+                    <i data-lucide="frown" size="18"></i>
+                    <span>Tu equipo atrapado en tareas administrativas.</span>
+                </div>
+            </div>
+
+            <div class="card" style="border-color: var(--accent-green); box-shadow: 0 0 20px rgba(0,255,148,0.1);">
+                <div class="card-header text-green">
+                    <i data-lucide="check-circle" class="icon-green"></i>
+                    Con Este Sistema
+                </div>
+                <div class="list-item">
+                    <i data-lucide="zap" size="18" class="icon-green"></i>
+                    <span>Respuesta instantánea 24/7.</span>
+                </div>
+                <div class="list-item">
+                    <i data-lucide="database" size="18" class="icon-green"></i>
+                    <span>Datos 100% precisos y sincronizados.</span>
+                </div>
+                <div class="list-item">
+                    <i data-lucide="trending-up" size="18" class="icon-green"></i>
+                    <span>Enfoque total en vender y escalar.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="logic-section">
+            <h2>¿Cómo funciona la magia?</h2>
+            <p style="color: var(--text-muted);">Una vista rápida al interior de la "Caja Negra".</p>
             
-            <button id="downloadBtn" class="btn-main">
-                <span style="font-size: 1.5rem;">📥</span> Descargar Blueprint Gratis
+            <div class="flowchart-placeholder">
+                <span style="color: var(--text-muted); font-style: italic;">[Aquí inserta la Imagen del Flujo de Make/n8n]</span>
+                </div>
+
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="text-green" style="margin-bottom: 10px;"><i data-lucide="mouse-pointer"></i></div>
+                    <h3>1. El Disparador</h3>
+                    <p>Cuando un cliente rellena el formulario o sucede X evento, el sistema despierta.</p>
+                </div>
+                <div class="step">
+                    <div class="text-green" style="margin-bottom: 10px;"><i data-lucide="cpu"></i></div>
+                    <h3>2. El Procesamiento</h3>
+                    <p>La IA analiza la información, clasifica los datos y toma decisiones lógicas.</p>
+                </div>
+                <div class="step">
+                    <div class="text-green" style="margin-bottom: 10px;"><i data-lucide="check-square"></i></div>
+                    <h3>3. El Resultado</h3>
+                    <p>Se envía el correo, se agenda la cita o se actualiza el CRM automáticamente.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="download" class="download-section">
+            <i data-lucide="file-json" size="48" class="text-green"></i>
+            <h2 style="margin-top: 15px;">Tu Recurso Gratuito</h2>
+            <p style="color: var(--text-muted);">El blueprint listo para importar en tu cuenta.</p>
+            
+            <div class="code-block">
+                > descargar_sistema_v1.0.json
+            </div>
+            
+            <button class="btn btn-secondary">
+                Descargar Blueprint <i data-lucide="arrow-down-to-line"></i>
             </button>
-            <p style="font-size: 0.85rem; margin-top: 15px; opacity: 0.7;">
-                Archivo .json listo para importar en n8n
-            </p>
-        </div>
-    </section>
+            <br>
 
-    <section class="workflow">
-        <div class="container">
-            <div class="section-header">
-                <h2>Cómo funciona el sistema</h2>
-                <p>Tu asistente virtual de cobranzas trabaja en 4 pasos simples</p>
+            <div class="tech-warning">
+                <i data-lucide="alert-circle" size="14" style="vertical-align: middle;"></i>
+                <strong>Nota Técnica:</strong> Requiere configurar API Keys, Webhooks y manejo de errores.
             </div>
+        </section>
 
-            <div class="flow-grid">
-                <div class="flow-card">
-                    <div class="icon-box">📊</div>
-                    <h3>Detecta</h3>
-                    <p>Escanea Google Sheets buscando facturas impagas de hace 7, 14, 21 o 28 días.</p>
-                </div>
+        <section class="pivot-section">
+            <div class="pivot-card">
+                <h2 style="margin-bottom: 20px;">¿Quieres este sistema funcionando en 48hs?</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Tienes el plano arriba. Si tienes equipo técnico, pueden instalarlo hoy mismo. 
+                    Pero si prefieres <strong>no perder tiempo</strong> configurando APIs, corrigiendo errores de conexión o adaptando el sistema a tus reglas de negocio...
+                </p>
+                <a href="#booking" class="btn btn-primary">
+                    Yo lo implemento por ti <i data-lucide="briefcase"></i>
+                </a>
+            </div>
+        </section>
 
-                <div class="arrow">→</div>
-
-                <div class="flow-card">
-                    <div class="icon-box">📧</div>
-                    <h3>Verifica</h3>
-                    <p>Lee tus correos en Gmail para ver si el cliente ya respondió o prometió el pago.</p>
-                </div>
-
-                <div class="arrow">→</div>
-
-                <div class="flow-card">
-                    <div class="icon-box">🧠</div>
-                    <h3>Analiza</h3>
-                    <p>OpenAI decide si es prudente reclamar y redacta el correo ideal para la situación.</p>
-                </div>
-
-                <div class="arrow">→</div>
-
-                <div class="flow-card">
-                    <div class="icon-box">🚀</div>
-                    <h3>Ejecuta</h3>
-                    <p>Crea el borrador o envía el recordatorio automáticamente.</p>
+        <section id="booking" class="cal-section">
+            <h2 class="text-center" style="margin-bottom: 30px;">Agenda una Sesión de Diagnóstico</h2>
+            
+            <div class="cal-placeholder">
+                <div>
+                    <i data-lucide="calendar" size="48" style="display: block; margin: 0 auto 10px auto; opacity: 0.5;"></i>
+                    [Aquí se cargará tu calendario de Cal.com]
                 </div>
             </div>
-        </div>
-    </section>
+            </section>
 
-    <section class="details">
-        <div class="container">
-            <div class="section-header">
-                <h2 style="color: white;">¿Qué incluye este regalo?</h2>
-            </div>
-            <div class="tech-grid">
-                <div class="tech-item">
-                    <h3>📦 Blueprint Completo</h3>
-                    <p>El flujo de trabajo entero para n8n, con todos los nodos configurados y conectados.</p>
-                </div>
-                <div class="tech-item">
-                    <h3>🤖 Prompts de IA</h3>
-                    <p>Instrucciones de ingeniería de prompts pre-cargadas para que GPT actúe como un experto en cobranzas amable.</p>
-                </div>
-                <div class="tech-item">
-                    <h3>🛡️ Lógica Anti-Spam</h3>
-                    <p>Filtros inteligentes que evitan enviar correos si el cliente ya está en conversación contigo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <footer>
-        <p>Este sistema se entrega "tal cual" para potenciar tu productividad.</p>
+        <div class="container">
+            <p>Diseñado con <i data-lucide="heart" size="14" class="text-green"></i> y Automatización.</p>
+            <p style="margin-top: 10px; opacity: 0.5;">© 2024 Tu Nombre. Todos los derechos reservados.</p>
+        </div>
     </footer>
 
     <script>
-        // He limpiado y formateado el JSON del blueprint que me diste para asegurar que sea válido.
-        // Al quitar las dobles comillas extra y formatearlo, n8n podrá leerlo correctamente.
-        const blueprintContent = {
-            "id": "uf6t5qhnQMgilteE",
-            "meta": {
-                "instanceId": "[REDACTED_INSTANCE_ID]",
-                "templateCredsSetupCompleted": true
-            },
-            "name": "Email Manager",
-            "tags": [
-                {
-                    "id": "[REDACTED_TAG_ID]",
-                    "name": "Personal Assistant",
-                    "createdAt": "2025-05-28T13:58:43.876Z",
-                    "updatedAt": "2025-05-28T13:58:43.876Z"
-                }
-            ],
-            "nodes": [
-                {
-                    "id": "5e01a927-caf7-41ad-aca7-d7504e313564",
-                    "name": "Gmail Trigger",
-                    "type": "n8n-nodes-base.gmailTrigger",
-                    "position": [-20, -60],
-                    "parameters": {
-                        "filters": {},
-                        "pollTimes": { "item": [{ "mode": "everyMinute" }] }
-                    },
-                    "credentials": {
-                        "gmailOAuth2": { "id": "[REDACTED_GMAIL_CRED_ID]", "name": "Gmail account" }
-                    },
-                    "typeVersion": 1.2
-                },
-                {
-                    "id": "a8644856-a8bf-49de-84a7-3fd9f93550d3",
-                    "name": "Gmail",
-                    "type": "n8n-nodes-base.gmail",
-                    "position": [200, -20],
-                    "webhookId": "[REDACTED_WEBHOOK_ID]",
-                    "parameters": {
-                        "simple": false,
-                        "options": {},
-                        "messageId": "={{ $json.id }}",
-                        "operation": "get"
-                    },
-                    "credentials": {
-                        "gmailOAuth2": { "id": "[REDACTED_GMAIL_CRED_ID]", "name": "Gmail account" }
-                    },
-                    "typeVersion": 2.1
-                },
-                {
-                    "id": "f6ddae9f-303b-46cd-980d-1d46fc4ecbec",
-                    "name": "Structured Output Parser",
-                    "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-                    "position": [1000, 100],
-                    "parameters": {
-                        "jsonSchemaExample": "{\n\t\"label\": \"Label name\", \n\"label ID\": \"label ID\" \n}"
-                    },
-                    "typeVersion": 1.2
-                },
-                {
-                    "id": "cc6b0990-a778-4199-a0fe-80c83dfb9934",
-                    "name": "Gmail1",
-                    "type": "n8n-nodes-base.gmail",
-                    "position": [1020, -220],
-                    "webhookId": "[REDACTED_WEBHOOK_ID]",
-                    "parameters": {
-                        "labelIds": "={{ $json.output['label ID'] }}",
-                        "messageId": "={{ $('Gmail').item.json.id }}",
-                        "operation": "addLabels"
-                    },
-                    "credentials": {
-                        "gmailOAuth2": { "id": "[REDACTED_GMAIL_CRED_ID]", "name": "Gmail account" }
-                    },
-                    "typeVersion": 2.1
-                },
-                {
-                    "id": "f47e8e55-f634-417f-b62f-60e47af71827",
-                    "name": "Anthropic Chat Model",
-                    "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
-                    "position": [380, 160],
-                    "parameters": {
-                        "model": {
-                            "__rl": true,
-                            "mode": "list",
-                            "value": "claude-sonnet-4-20250514",
-                            "cachedResultName": "Claude Sonnet 4"
-                        },
-                        "options": {}
-                    },
-                    "credentials": {
-                        "anthropicApi": { "id": "[REDACTED_ANTHROPIC_CRED_ID]", "name": "Anthropic account 3" }
-                    },
-                    "typeVersion": 1.3
-                },
-                {
-                    "id": "b0ed86c7-5ddd-48dc-aa93-5c4d5c1cacf7",
-                    "name": "AI Agent",
-                    "type": "@n8n/n8n-nodes-langchain.agent",
-                    "position": [500, -140],
-                    "parameters": {
-                        "text": "Run the task.",
-                        "options": {
-                            "systemMessage": "=**Objective:** Analyze the provided email data and classify it with the most appropriate label... (CONTENIDO TRUNCADO POR BREVEDAD EN VISUALIZACIÓN, PERO COMPLETO EN DESCARGA)"
-                        },
-                        "promptType": "define",
-                        "hasOutputParser": true
-                    },
-                    "typeVersion": 1.9
-                }
-                // ... (Se incluyen todos los nodos del blueprint original en el archivo descargable)
-            ],
-            "active": true,
-            "settings": { "executionOrder": "v1" },
-            "versionId": "644d8154-7912-436a-8c05-e8e2f1092993",
-            "connections": {
-                "Gmail": { "main": [[{ "node": "AI Agent", "type": "main", "index": 0 }]] },
-                "Gmail1": { "main": [[]] },
-                "AI Agent": { "main": [[{ "node": "Gmail1", "type": "main", "index": 0 }]] },
-                "Get Email": { "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]] },
-                "Check Sent": { "ai_tool": [[{ "node": "AI Agent", "type": "ai_tool", "index": 0 }]] },
-                "Gmail Trigger": { "main": [[{ "node": "Gmail", "type": "main", "index": 0 }]] },
-                "Anthropic Chat Model": { "ai_languageModel": [[{ "node": "AI Agent", "type": "ai_languageModel", "index": 0 }]] },
-                "Structured Output Parser": { "ai_outputParser": [[{ "node": "AI Agent", "type": "ai_outputParser", "index": 0 }]] }
-            }
-        };
-
-        // Para asegurarnos de que el archivo descargado tenga TODO el contenido original del blueprint
-        // incluyendo el systemMessage completo, reemplazamos el objeto anterior con el texto crudo sanitizado.
-        
-        const rawBlueprint = JSON.stringify(blueprintContent, null, 2);
-
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            const blob = new Blob([rawBlueprint], { type: 'application/json' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'blueprint_sistema_cobranza.json';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-            
-            // Feedback visual simple
-            const btn = document.getElementById('downloadBtn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = "✅ ¡Descargado!";
-            btn.style.background = "#10b981";
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = "";
-            }, 2000);
-        });
+        lucide.createIcons();
     </script>
 </body>
 </html>
