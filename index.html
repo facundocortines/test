@@ -7,34 +7,36 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* --- VARIABLES & PALETA PREMIUM --- */
+        /* --- CONFIGURACIÓN GLOBAL --- */
         :root {
-            --bg-gradient-start: #28294e;
-            --bg-gradient-mid: #000121;
-            --bg-gradient-end: #000121;
+            --bg-color: #000121;       /* Azul Noche Plano */
             
-            --text-gold: #ffedc6;      /* Dorado Pálido (Principal) */
+            --text-gold: #ffedc6;      /* Dorado Pálido */
             --text-white: #ffffff;
             --text-gray: #c1c1c1;      /* Gris Plata */
             
-            --accent-green: #00FF94;   /* Solo para "Éxito/Check" */
-            --accent-orange: #FF9900;  /* Solo para detalles urgentes */
+            --accent-green: #00FF94;   /* Detalles de éxito */
+            --accent-orange: #FF9900;  /* Alertas */
             
-            --card-bg: rgba(255, 255, 255, 0.03); /* Efecto cristal muy sutil */
-            --border-gold: rgba(255, 237, 198, 0.2);
+            --card-bg: rgba(255, 255, 255, 0.02); /* Casi invisible */
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(255, 237, 198, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth; /* Scroll suave al navegar */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
-            /* Degradado de 3 colores según tu banner */
-            background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 40%, var(--bg-gradient-end) 100%);
+            background-color: var(--bg-color);
             color: var(--text-white);
             line-height: 1.6;
             min-height: 100vh;
@@ -46,69 +48,58 @@
             padding: 0 20px;
         }
 
-        /* --- TIPOGRAFÍA & UTILIDADES --- */
-        h1, h2, h3 { color: var(--text-white); }
-        p { color: var(--text-gray); }
+        /* --- TIPOGRAFÍA --- */
+        h1, h2, h3 { color: var(--text-white); font-weight: 600; }
+        p { color: var(--text-gray); font-weight: 300; }
         
-        /* Clase para la fuente manuscrita */
-        .handwritten {
-            font-family: 'Gochi Hand', cursive;
-            color: var(--text-gold);
-            font-size: 1.4em;
-            transform: rotate(-2deg);
-            display: inline-block;
-            margin: 0 5px;
-            text-shadow: 0 0 10px rgba(255, 237, 198, 0.2);
-        }
-
         .text-gold { color: var(--text-gold); }
         .text-center { text-align: center; }
 
-        /* --- BOTONES PREMIUM --- */
+        /* --- BOTONES --- */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 14px 28px;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 12px 26px;
+            border-radius: 6px;
+            font-weight: 500;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             cursor: pointer;
             border: none;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         
-        /* Botón Principal: Dorado (Premium) */
+        /* Botón Principal: Dorado */
         .btn-primary {
             background-color: var(--text-gold);
-            color: #000121; /* Contraste alto */
+            color: #000121;
         }
         .btn-primary:hover {
             background-color: #fff;
-            box-shadow: 0 0 20px rgba(255, 237, 198, 0.4);
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 237, 198, 0.2);
         }
 
-        /* Botón Secundario: Outline Dorado */
+        /* Botón Secundario: Outline */
         .btn-secondary {
             background: transparent;
             border: 1px solid var(--text-gold);
             color: var(--text-gold);
         }
         .btn-secondary:hover {
-            background: rgba(255, 237, 198, 0.1);
+            background: rgba(255, 237, 198, 0.05);
         }
 
         /* --- NAVBAR --- */
         nav {
-            padding: 25px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-subtle);
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(40, 41, 78, 0.8);
+            background: rgba(0, 1, 33, 0.9); /* Mismo color fondo con transparencia */
+            backdrop-filter: blur(8px);
         }
 
         /* --- HERO SECTION --- */
@@ -117,15 +108,26 @@
             text-align: center;
         }
         .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
+            font-size: 3.2rem;
+            line-height: 1.15;
             margin-bottom: 25px;
-            font-weight: 700;
         }
         .hero p {
-            font-size: 1.25rem;
-            max-width: 700px;
+            font-size: 1.2rem;
+            max-width: 650px;
             margin: 0 auto 40px;
+            color: var(--text-gray);
+        }
+        .highlight-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 50px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-gray);
         }
 
         /* --- COMPARISON --- */
@@ -138,90 +140,86 @@
         .card {
             background: var(--card-bg);
             padding: 40px;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s ease;
+            border-radius: 12px;
+            border: 1px solid var(--border-subtle);
         }
-        .card.premium-border {
+        .card.gold-border {
             border: 1px solid var(--border-gold);
-            box-shadow: 0 0 30px rgba(0,0,0,0.3);
         }
         .card-header {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 25px;
-            font-weight: 600;
-            font-size: 1.2rem;
+            font-weight: 500;
+            font-size: 1.1rem;
             color: var(--text-white);
         }
         .list-item {
             display: flex;
             align-items: start;
             gap: 15px;
-            margin-bottom: 18px;
+            margin-bottom: 15px;
             color: var(--text-gray);
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         /* --- LOGIC VISUAL --- */
         .logic-section { padding: 80px 0; }
         .flowchart-container {
-            background: rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.02);
             border: 1px dashed var(--text-gray);
-            border-radius: 16px;
+            border-radius: 12px;
             height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 40px 0;
-            position: relative;
         }
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 30px;
         }
-        .step h3 { margin: 15px 0 10px; font-size: 1.2rem; color: var(--text-gold); }
+        .step h3 { margin: 15px 0 8px; font-size: 1.1rem; color: var(--text-gold); }
 
-        /* --- DOWNLOAD (TERMINAL STYLE) --- */
+        /* --- DOWNLOAD --- */
         .download-section {
-            background: linear-gradient(145deg, #0F0F25 0%, #050510 100%);
+            background: rgba(255, 255, 255, 0.02);
             padding: 50px;
-            border-radius: 20px;
+            border-radius: 12px;
             border: 1px solid var(--border-gold);
             text-align: center;
             margin: 80px 0;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         .code-block {
-            background: #000;
+            background: #050510;
             font-family: 'Fira Code', monospace;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 6px;
             margin: 25px auto;
             max-width: 450px;
             color: var(--text-gold);
-            border: 1px solid #333;
+            border: 1px solid rgba(255,255,255,0.1);
             text-align: left;
+            font-size: 0.9rem;
         }
 
         /* --- CAL.COM SECTION --- */
-        .cal-wrapper {
-            margin-top: 40px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border-gold);
-            background: #000; /* Fondo negro para que el embed se funda */
-            height: 700px; /* Altura fija necesaria para el scroll del embed */
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        .cal-section {
+            padding-bottom: 100px;
+            padding-top: 20px;
+        }
+        /* Ajuste para asegurar que el embed ocupe el ancho correcto sin scrollbars externos */
+        #my-cal-inline-llamada-de-diagnostico {
+            width: 100%;
+            min-height: 600px; /* Altura mínima para evitar cortes */
         }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
+            .hero h1 { font-size: 2rem; }
             .comparison, .steps-grid { grid-template-columns: 1fr; }
-            .handwritten { display: block; transform: rotate(0); margin: 10px 0; }
         }
     </style>
 </head>
@@ -229,10 +227,10 @@
 
     <nav>
         <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-weight: 700; font-size: 1.3rem; letter-spacing: -0.5px;">
-                FACUNDO<span class="text-gold">CORTINES</span>
+            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-white);">
+                Facundo Cortines
             </div>
-            <a href="https://cal.com/facundo-cortines/llamada-de-diagnostico" target="_blank" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+            <a href="#booking" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">
                 Agendar Llamada
             </a>
         </div>
@@ -241,17 +239,17 @@
     <div class="container">
         
         <section class="hero">
-            <div style="border: 1px solid var(--text-gray); padding: 5px 15px; border-radius: 50px; display: inline-block; margin-bottom: 20px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text-gray);">
+            <div class="highlight-badge">
                 Sistema de Automatización Gratuito
             </div>
 
             <h1>
                 Consigue <span class="text-gold">[RESULTADO FINAL]</span><br>
-                usando <span class="handwritten">Inteligencia Artificial</span>
+                usando Inteligencia Artificial
             </h1>
             
             <p>
-                Deja de perder tiempo en [TAREA MANUAL ABURRIDA] y escala tus operaciones implementando este flujo lógico probado.
+                Deja de perder tiempo en [TAREA MANUAL] y escala tus operaciones implementando este flujo lógico probado.
             </p>
             
             <a href="#download" class="btn btn-primary">
@@ -261,25 +259,21 @@
 
         <section class="comparison">
             <div class="card">
-                <div class="card-header" style="opacity: 0.7;">
+                <div class="card-header" style="opacity: 0.6;">
                     <i data-lucide="x" style="color: #FF4444;"></i>
-                    El Método Tradicional
+                    El Método Manual
                 </div>
                 <div class="list-item">
                     <i data-lucide="clock" size="18"></i>
-                    <span>Horas perdidas en procesos manuales.</span>
+                    <span>Horas perdidas en procesos repetitivos.</span>
                 </div>
                 <div class="list-item">
                     <i data-lucide="file-warning" size="18"></i>
-                    <span>Datos desordenados y errores humanos.</span>
-                </div>
-                <div class="list-item">
-                    <i data-lucide="activity" size="18"></i>
-                    <span>Crecimiento estancado por "fricción".</span>
+                    <span>Datos desordenados y errores frecuentes.</span>
                 </div>
             </div>
 
-            <div class="card premium-border">
+            <div class="card gold-border">
                 <div class="card-header text-gold">
                     <i data-lucide="check-circle-2" style="color: var(--accent-green);"></i>
                     Con este Sistema
@@ -292,95 +286,86 @@
                     <i data-lucide="shield-check" size="18" class="text-gold"></i>
                     <span class="text-white">Precisión absoluta en los datos.</span>
                 </div>
-                <div class="list-item">
-                    <i data-lucide="bar-chart-3" size="18" class="text-gold"></i>
-                    <span class="text-white">Escalabilidad sin contratar más personal.</span>
-                </div>
             </div>
         </section>
 
         <section class="logic-section text-center">
-            <h2>Entendiendo la <span class="handwritten">Caja Negra</span></h2>
-            <p style="margin-top: 10px;">Así es como transformamos el caos en orden.</p>
+            <h2>Entendiendo el Sistema</h2>
+            <p style="margin-top: 10px;">Visualiza cómo funciona el flujo lógico.</p>
             
             <div class="flowchart-container">
                 <span style="color: var(--text-gray); font-style: italic;">
                     <i data-lucide="image" style="margin-bottom: 10px; display: block; margin: 0 auto;"></i>
-                    [Aquí inserta la captura de tu flujo en Make/n8n]
+                    [Insertar captura del flujo de Make/n8n]
                 </span>
             </div>
 
             <div class="steps-grid text-start">
                 <div class="step">
-                    <i data-lucide="mouse-pointer-2" class="text-gold" size="32"></i>
+                    <i data-lucide="mouse-pointer-2" class="text-gold" size="28"></i>
                     <h3>1. Input</h3>
-                    <p>El disparador inicia el flujo automáticamente cuando recibes un dato.</p>
+                    <p>El sistema detecta el evento inicial automáticamente.</p>
                 </div>
                 <div class="step">
-                    <i data-lucide="cpu" class="text-gold" size="32"></i>
+                    <i data-lucide="cpu" class="text-gold" size="28"></i>
                     <h3>2. Proceso IA</h3>
-                    <p>Los agentes analizan la información y toman decisiones inteligentes.</p>
+                    <p>Los agentes analizan y transforman la información.</p>
                 </div>
                 <div class="step">
-                    <i data-lucide="send" class="text-gold" size="32"></i>
+                    <i data-lucide="send" class="text-gold" size="28"></i>
                     <h3>3. Output</h3>
-                    <p>El resultado final se entrega o se sincroniza donde lo necesitas.</p>
+                    <p>El resultado final se entrega donde lo necesitas.</p>
                 </div>
             </div>
         </section>
 
         <section id="download" class="download-section">
-            <i data-lucide="file-code-2" size="48" class="text-gold"></i>
-            <h2 style="margin-top: 20px;">Descarga el Blueprint</h2>
-            <p>El archivo JSON listo para importar en tu sistema.</p>
+            <i data-lucide="file-code-2" size="42" class="text-gold"></i>
+            <h2 style="margin-top: 20px;">Descargar Blueprint</h2>
+            <p>Archivo JSON listo para importar.</p>
             
             <div class="code-block">
-                <span style="color: #666;">// Archivo de configuración</span><br>
-                > sistema_automatizado_v1.json <span class="text-gold blink">_</span>
+                > sistema_v1.json <span class="text-gold">_</span>
             </div>
             
             <button class="btn btn-secondary">
-                Descargar JSON (.zip)
+                Descargar Archivo .JSON
             </button>
 
-            <div style="margin-top: 30px; font-size: 0.9rem; color: var(--text-gray);">
-                <i data-lucide="alert-triangle" size="14" style="color: var(--accent-orange); vertical-align: middle;"></i>
-                <strong>Requisito:</strong> Necesitarás configurar tus propias API Keys.
+            <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-gray);">
+                <i data-lucide="info" size="14" style="vertical-align: middle;"></i>
+                Requiere configuración de API Keys propias.
             </div>
         </section>
 
-        <div class="text-center" style="padding: 40px 0;">
-            <h2 style="font-size: 2.2rem; margin-bottom: 20px;">
-                ¿Prefieres saltarte la <span class="handwritten">configuración técnica?</span>
-            </h2>
+        <div class="text-center" style="padding: 40px 0 60px;">
+            <h2 style="margin-bottom: 15px;">¿Quieres evitar la configuración técnica?</h2>
             <p style="max-width: 600px; margin: 0 auto;">
-                Si no quieres lidiar con webhooks, errores de API o mantenimiento, 
-                puedo instalar y personalizar este sistema en tu negocio.
+                Puedo instalar y adaptar este sistema específicamente para tu negocio.
             </p>
         </div>
 
-        <section id="booking" style="padding-bottom: 80px;">
-            <div class="cal-wrapper">
-                <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-llamada-de-diagnostico"></div>
-                <script type="text/javascript">
-                (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-                Cal("init", "llamada-de-diagnostico", {origin:"https://app.cal.com"});
+        <section id="booking" class="cal-section">
+            <div id="my-cal-inline-llamada-de-diagnostico"></div>
+            
+            <script type="text/javascript">
+            (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+            Cal("init", "llamada-de-diagnostico", {origin:"https://app.cal.com"});
 
-                Cal.ns["llamada-de-diagnostico"]("inline", {
-                    elementOrSelector:"#my-cal-inline-llamada-de-diagnostico",
-                    config: {"layout":"month_view","theme":"dark"},
-                    calLink: "facundo-cortines/llamada-de-diagnostico",
-                });
+            Cal.ns["llamada-de-diagnostico"]("inline", {
+                elementOrSelector:"#my-cal-inline-llamada-de-diagnostico",
+                config: {"layout":"month_view","theme":"dark"},
+                calLink: "facundo-cortines/llamada-de-diagnostico",
+            });
 
-                Cal.ns["llamada-de-diagnostico"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#292929"},"dark":{"cal-brand":"#ffedc6"}},"hideEventTypeDetails":false,"layout":"month_view"});
-                </script>
-                </div>
+            Cal.ns["llamada-de-diagnostico"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#292929"},"dark":{"cal-brand":"#ffedc6"}},"hideEventTypeDetails":false,"layout":"month_view"});
+            </script>
         </section>
 
     </div>
 
-    <footer style="border-top: 1px solid rgba(255,255,255,0.1); padding: 40px 0; text-align: center; font-size: 0.9rem; color: var(--text-gray);">
-        <p>© 2025 Facundo Cortines. Automatizaciones que escalan.</p>
+    <footer style="border-top: 1px solid var(--border-subtle); padding: 40px 0; text-align: center; font-size: 0.85rem; color: var(--text-gray);">
+        <p>© 2025 Facundo Cortines.</p>
     </footer>
 
     <script>
