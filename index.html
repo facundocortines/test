@@ -762,12 +762,10 @@
         setInterval(nextSlide, intervalTime);
 
 
-        // --- AUTO-SCAN BLUEPRINT.JSON (GITHUB API) ---
+        // --- AUTO-SCAN & FORCE DOWNLOAD (GITHUB API + BLOB) ---
         document.addEventListener('DOMContentLoaded', async () => {
             const downloadBtn = document.getElementById('downloadBtn');
             
-            // Solo funciona si está hosteado (ej: facucortines.github.io/repo)
-            // Si estás en local (file://), no funcionará el autodetect
             const hostname = window.location.hostname;
             const pathSegments = window.location.pathname.split('/').filter(p => p);
 
@@ -782,13 +780,36 @@
                     const data = await response.json();
 
                     if (Array.isArray(data)) {
-                        // Busca el primer archivo que termine en .json
                         const jsonFile = data.find(file => file.name.endsWith('.json'));
 
                         if (jsonFile) {
-                            downloadBtn.href = jsonFile.download_url;
-                            downloadBtn.setAttribute('download', jsonFile.name);
                             downloadBtn.textContent = "Descargar sistema";
+                            
+                            // CLICK EVENT: Force Download via Blob
+                            downloadBtn.addEventListener('click', async (e) => {
+                                e.preventDefault(); // Stop default nav
+                                downloadBtn.textContent = "Descargando...";
+                                
+                                try {
+                                    const rawRes = await fetch(jsonFile.download_url);
+                                    const blob = await rawRes.blob();
+                                    const url = window.URL.createObjectURL(blob);
+                                    
+                                    const a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = jsonFile.name;
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    
+                                    window.URL.revokeObjectURL(url);
+                                    document.body.removeChild(a);
+                                    downloadBtn.textContent = "Descargar sistema";
+                                } catch (err) {
+                                    console.error("Error descargando blob:", err);
+                                    downloadBtn.textContent = "Error";
+                                }
+                            });
+
                         } else {
                             console.warn("No se encontró ningún archivo .json en el repo.");
                             downloadBtn.textContent = "Error: No encontrado";
@@ -800,8 +821,7 @@
                     downloadBtn.textContent = "Error de carga";
                 }
             } else {
-                // Fallback para desarrollo local o si no es GitHub Pages
-                // Asegúrate de que exista un archivo llamado 'blueprint.json' o edita esto
+                // Fallback para local
                 downloadBtn.href = "blueprint.json"; 
                 downloadBtn.setAttribute('download', 'blueprint.json');
             }
