@@ -70,7 +70,6 @@
             font-size: 0.95rem;
         }
         
-        /* Botón Principal: Dorado */
         .btn-primary {
             background-color: var(--text-gold);
             color: #000121;
@@ -81,7 +80,6 @@
             box-shadow: 0 4px 15px rgba(255, 237, 198, 0.2);
         }
 
-        /* Botón Secundario: Outline */
         .btn-secondary {
             background: transparent;
             border: 1px solid var(--text-gold);
@@ -97,9 +95,9 @@
             border-bottom: 1px solid var(--border-subtle);
             position: sticky;
             top: 0;
-            z-index: 100;
-            background: rgba(0, 1, 33, 0.9); /* Mismo color fondo con transparencia */
-            backdrop-filter: blur(8px);
+            z-index: 1000; /* Z-index alto para estar siempre arriba */
+            background: rgba(0, 1, 33, 0.95); 
+            backdrop-filter: blur(10px);
         }
 
         /* --- HERO SECTION --- */
@@ -205,15 +203,24 @@
             font-size: 0.9rem;
         }
 
-        /* --- CAL.COM SECTION --- */
+        /* --- CAL.COM SECTION (FIXED) --- */
         .cal-section {
-            padding-bottom: 100px;
-            padding-top: 20px;
+            /* Esto asegura que al hacer click en el link, el navegador 
+               deje 120px de espacio arriba para no quedar tapado por el navbar */
+            scroll-margin-top: 120px; 
+            
+            /* Esto centra verticalmente el calendario en la pantalla si hay espacio */
+            min-height: 90vh;
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            padding-bottom: 40px;
         }
-        /* Ajuste para asegurar que el embed ocupe el ancho correcto sin scrollbars externos */
-        #my-cal-inline-llamada-de-diagnostico {
+        
+        /* Clase wrapper para limitar ancho si es necesario */
+        .cal-wrapper {
             width: 100%;
-            min-height: 600px; /* Altura mínima para evitar cortes */
+            /* Ajusta esto si quieres que sea más ancho o angosto */
         }
 
         /* --- RESPONSIVE --- */
@@ -338,7 +345,7 @@
             </div>
         </section>
 
-        <div class="text-center" style="padding: 40px 0 60px;">
+        <div class="text-center" style="padding: 40px 0 20px;">
             <h2 style="margin-bottom: 15px;">¿Quieres evitar la configuración técnica?</h2>
             <p style="max-width: 600px; margin: 0 auto;">
                 Puedo instalar y adaptar este sistema específicamente para tu negocio.
@@ -346,20 +353,21 @@
         </div>
 
         <section id="booking" class="cal-section">
-            <div id="my-cal-inline-llamada-de-diagnostico"></div>
-            
-            <script type="text/javascript">
-            (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-            Cal("init", "llamada-de-diagnostico", {origin:"https://app.cal.com"});
+            <div class="cal-wrapper">
+                <div style="width:100%;height:100%;overflow:hidden" id="my-cal-inline-llamada-de-diagnostico"></div>
+                <script type="text/javascript">
+                (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+                Cal("init", "llamada-de-diagnostico", {origin:"https://app.cal.com"});
 
-            Cal.ns["llamada-de-diagnostico"]("inline", {
-                elementOrSelector:"#my-cal-inline-llamada-de-diagnostico",
-                config: {"layout":"month_view","theme":"dark"},
-                calLink: "facundo-cortines/llamada-de-diagnostico",
-            });
+                Cal.ns["llamada-de-diagnostico"]("inline", {
+                    elementOrSelector:"#my-cal-inline-llamada-de-diagnostico",
+                    config: {"layout":"month_view","theme":"dark"},
+                    calLink: "facundo-cortines/llamada-de-diagnostico",
+                });
 
-            Cal.ns["llamada-de-diagnostico"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#292929"},"dark":{"cal-brand":"#ffedc6"}},"hideEventTypeDetails":false,"layout":"month_view"});
-            </script>
+                Cal.ns["llamada-de-diagnostico"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#292929"},"dark":{"cal-brand":"#ffedc6"}},"hideEventTypeDetails":false,"layout":"month_view"});
+                </script>
+                </div>
         </section>
 
     </div>
