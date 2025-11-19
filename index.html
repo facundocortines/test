@@ -80,7 +80,7 @@
             border: none;
             font-size: 0.95rem;
             z-index: 10;
-            font-family: 'Poppins', sans-serif; /* Asegurar la tipografía */
+            font-family: 'Poppins', sans-serif; 
         }
         
         .btn-primary {
@@ -207,63 +207,59 @@
             align-items: stretch;
         }
         
-        /* Tarjeta de Desventajas (Más Dramática) */
+        /* Tarjeta Izquierda */
         .glass-panel {
             background: #0a0a0a;
             padding: 40px;
             border-radius: 16px;
-            border: 1px solid rgba(255, 20, 20, 0.3); /* Borde rojo */
+            border: 1px solid rgba(255, 20, 20, 0.3); 
             box-shadow: 
-                0 0 0 1px rgba(255, 0, 0, 0.05), /* Borde exterior tenue */
-                inset 0 0 20px rgba(255, 0, 0, 0.05), /* Sombra interior roja */
-                0 10px 30px rgba(0,0,0,0.8); /* Sombra principal */
-            opacity: 0.9; /* Menos opaca */
+                inset 0 0 20px rgba(255, 0, 0, 0.05), 
+                0 10px 30px rgba(0,0,0,0.8); 
+            opacity: 0.9; 
             transition: all 0.3s;
+            position: relative;
         }
         
-        /* REGLA AGREGADA: Texto de desventajas más visible (85% opacidad blanco) */
         .glass-panel .list-item {
             color: rgba(255, 255, 255, 0.85) !important;
         }
 
         .glass-panel:hover {
              transform: translateY(-5px);
+             border-color: rgba(255, 20, 20, 0.5);
              box-shadow: 
-                0 0 0 2px rgba(255, 0, 0, 0.1),
                 inset 0 0 30px rgba(255, 0, 0, 0.1),
                 0 20px 50px rgba(0,0,0,1);
         }
 
-        /* --- MAGIC CARD (EFECTO ESTÁTICO MUY BRILLANTE) --- */
+        /* --- MAGIC CARD CORREGIDA --- */
+        /* Usamos padding para simular el borde, eliminando border-image que causa esquinas cuadradas */
         .magic-card {
             position: relative;
-            background: #050505;
             border-radius: 16px;
-            box-shadow: 
-                0 0 100px -20px rgba(255, 237, 198, 0.3), /* Glow dorado muy fuerte */
-                0 0 0 1px rgba(255, 237, 198, 0.5); /* Borde de luz fina */
-            overflow: hidden;
-            transform: scale(1.02); /* Ligeramente más grande */
-            border: 1px solid transparent; /* para que el border-image funcione */
-            
-            /* Gradiente de borde estático */
-            border-image: linear-gradient(
+            padding: 1px; /* Grosor del borde */
+            background: linear-gradient(
                 45deg, 
                 #ffedc6 0%, 
                 rgba(255, 237, 198, 0.8) 25%, 
                 rgba(255, 237, 198, 0.5) 50%, 
                 rgba(255, 237, 198, 0.8) 75%, 
                 #ffedc6 100%
-            ) 1;
+            );
+            box-shadow: 0 0 100px -20px rgba(255, 237, 198, 0.3);
+            transform: scale(1.02); 
+            display: flex; /* Para asegurar que el hijo ocupe todo */
         }
-        /* Contenido para el interior de la tarjeta */
+        
+        /* El contenido interior tapa el centro, dejando ver solo el padding (el borde) */
         .magic-content {
             background: #080808;
-            border-radius: 14px;
+            border-radius: 15px; /* 1px menos que el padre */
             padding: 40px;
+            width: 100%;
             position: relative;
             z-index: 1;
-            height: 100%;
         }
 
         .card-header {
@@ -389,8 +385,8 @@
             .download-grid { grid-template-columns: 1fr; } 
             .download-left { border-right: none; border-bottom: 1px solid #222; padding: 40px; }
             .download-right { padding: 30px; align-items: center; text-align: center; }
-            .download-steps { text-align: left; } /* Los pasos se quedan a la izquierda */
-            .d-step { justify-content: flex-start; } /* Los pasos se quedan a la izquierda */
+            .download-steps { text-align: left; } 
+            .d-step { justify-content: flex-start; } 
             .scroll-perspective-wrapper { height: auto; margin-bottom: 50px; }
             .scroll-card-3d { height: 300px; position: relative; top: 0; transform: none !important; }
         }
@@ -527,8 +523,7 @@
                         </div>
                         <div class="d-step">
                             <div class="d-number">2</div>
-                            <div>Crea un escenario en n8n</div>
-                        </div>
+                            <div>Crea un escenario en n8n.</div> </div>
                         <div class="d-step">
                             <div class="d-number">3</div>
                             <div>Haz click en los 3 puntos en la esquina superior derecha.</div>
@@ -551,7 +546,7 @@
                 ¿Cansado de que tu negocio <span class="text-gold">siga dependiendo de ti?</span>
             </h2>
             <p style="max-width: 700px; margin: 0 auto; font-size: 1.1rem; color: var(--text-gray);">
-                Si facturas 20K-30K+ USD/mes con tu agencia o empresa B2B, sabes que el potencial está ahí, pero la operación diaria te consume. Apagas incendios, persigues leads y tu equipo comete errores que tú debes corregir. No necesitas más personal, necesitas un sistema que trabaje por ti, genere ingresos predecibles y te devuelva el control y la libertad para enfocar tu visión en el crecimiento real.
+                Deja de operar y empieza a dirigir. Creamos sistemas que le permiten a tu negocio escalar sin depender de ti mientras tu equipo ejecuta con precisión. Agenda una llamada para analizar cómo podemos aplicarlos en tu negocio.
             </p>
         </div>
 
