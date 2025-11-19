@@ -34,6 +34,12 @@
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* --- CORRECCIÓN DE SCROLL (FIX NAV TAPANDO CONTENIDO) --- */
+        /* Esto hace que al dar click, el scroll frene antes, dejando espacio para el header */
+        #download, #booking {
+            scroll-margin-top: 120px;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
@@ -136,9 +142,9 @@
             margin: 0 auto 30px;
         }
 
-        /* --- 3D SCROLL CONTAINER (AJUSTADO) --- */
+        /* --- 3D SCROLL CONTAINER --- */
         .scroll-perspective-wrapper {
-            min-height: 100vh; /* Cambiado de height a min-height para evitar cortes */
+            min-height: 100vh; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -150,14 +156,10 @@
 
         .scroll-card-3d {
             width: 90%;
-            max-width: 1200px; /* Aumentado un poco para pantallas grandes */
-            
-            /* --- CAMBIO CLAVE PARA LA IMAGEN --- */
-            height: auto;         /* Altura automática basada en el ratio */
-            aspect-ratio: 16/9;   /* Mantiene proporción panorámica de pantalla */
-            min-height: 500px;    /* Nunca será más bajo que esto, evitando que se "aplaste" */
-            /* ---------------------------------- */
-
+            max-width: 1200px; 
+            height: auto;         
+            aspect-ratio: 16/9;   
+            min-height: 500px;    
             background: #111;
             border: 4px solid #333;
             border-radius: 20px;
@@ -213,7 +215,6 @@
             align-items: stretch;
         }
         
-        /* Tarjeta Izquierda */
         .glass-panel {
             background: #0a0a0a;
             padding: 40px;
@@ -239,7 +240,6 @@
                 0 20px 50px rgba(0,0,0,1);
         }
 
-        /* --- MAGIC CARD --- */
         .magic-card {
             position: relative;
             border-radius: 16px;
@@ -392,7 +392,6 @@
             .download-steps { text-align: left; } 
             .d-step { justify-content: flex-start; } 
             .scroll-perspective-wrapper { min-height: auto; margin-bottom: 50px; }
-            /* En móvil se ajusta a altura fija normal */
             .scroll-card-3d { height: 300px; min-height: auto; aspect-ratio: auto; position: relative; top: 0; transform: none !important; }
         }
     </style>
@@ -419,7 +418,7 @@
                 <div class="highlight-badge">Sistema gratuito</div>
                 <h1>[title]</h1>
                 <p>[description]</p>
-                <a href="#download" class="btn btn-primary">Obtener Sistema</a>
+                <a href="#download" class="btn btn-primary">Reclamar sistema</a>
             </div>
 
             <div class="scroll-card-3d" id="card3d">
@@ -553,7 +552,7 @@
             </h2>
             
             <p style="max-width: 1000px; margin: 0 auto; font-size: 1.1rem; color: var(--text-gray);">
-                Deja de operar y empieza a dirigir. Creamos sistemas que le permiten a tu negocio escalar sin depender de ti mientras tu equipo ejecuta con precisión. Agenda una llamada para analizar cómo podemos aplicarlos en tu negocio.
+                Deja de operar y empieza a dirigir. Creamos sistemas que le permiten a tu negocio escalar sin ti mientras tu equipo ejecuta con precisión. Agenda una llamada para analizar cómo podemos aplicarlos en tu negocio.
             </p>
         </div>
 
