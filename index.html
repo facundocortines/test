@@ -54,7 +54,6 @@
         .text-gold { color: var(--text-gold); }
         .text-center { text-align: center; }
         
-        /* Fondo desenfocado detrás */
         .blur-bg {
             position: absolute;
             width: 600px;
@@ -92,15 +91,6 @@
             background-color: #fff;
             transform: translateY(-2px);
             box-shadow: 0 0 30px rgba(255, 237, 198, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--text-gold);
-            color: var(--text-gold);
-        }
-        .btn-secondary:hover {
-            background: rgba(255, 237, 198, 0.05);
         }
 
         /* --- NAVBAR --- */
@@ -174,7 +164,6 @@
             flex-direction: column;
         }
 
-        /* UI Browser Falsa */
         .browser-header {
             height: 40px;
             background: #1a1a1a;
@@ -200,7 +189,6 @@
             position: relative;
         }
         
-        /* IMAGEN DEL DASHBOARD */
         .browser-content img {
             width: 100%;
             height: 100%;
@@ -209,24 +197,71 @@
             opacity: 1;
         }
 
-        /* --- COMPARISON SECTION --- */
+        /* --- COMPARISON SECTION (UPDATED) --- */
         .comparison {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 80px 0;
+            gap: 40px;
+            margin: 100px 0;
+            align-items: stretch;
         }
+        
+        /* Tarjeta Normal (Sin Sistema) */
         .glass-panel {
-            background: var(--card-bg);
+            background: #0a0a0a;
             padding: 40px;
             border-radius: 16px;
             border: var(--border-light);
             box-shadow: var(--shadow-card);
-            position: relative;
+            opacity: 0.7;
+            transition: opacity 0.3s;
         }
-        .glass-panel.gold-glow {
-            border: var(--border-gold);
-            box-shadow: 0 0 50px rgba(255, 237, 198, 0.05); 
+        .glass-panel:hover { opacity: 1; }
+
+        /* --- MAGIC CARD (EFECTO DESTACADO) --- */
+        .magic-card {
+            position: relative;
+            background: #050505; /* Fondo oscuro */
+            border-radius: 16px;
+            padding: 3px; /* Espacio para el borde animado */
+            box-shadow: 0 0 80px -20px rgba(255, 237, 198, 0.15); /* Luz trasera fuerte */
+            overflow: hidden;
+            transform: scale(1.02); /* Ligeramente más grande */
+        }
+
+        /* Animación de rotación de luz */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* El gradiente que gira detrás */
+        .magic-card::before {
+            content: "";
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(
+                transparent 0deg, 
+                transparent 90deg, 
+                #ffedc6 180deg, 
+                transparent 270deg, 
+                transparent 360deg
+            );
+            position: absolute;
+            top: -25%;
+            left: -25%;
+            animation: rotate 4s linear infinite;
+            z-index: 0;
+        }
+
+        /* El contenedor del contenido para tapar el centro del gradiente */
+        .magic-content {
+            background: #080808;
+            border-radius: 14px;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+            height: 100%;
         }
 
         .card-header {
@@ -238,7 +273,7 @@
             color: var(--text-gray); font-size: 0.95rem;
         }
 
-        /* --- PROCESS GRID (EFECTO GRADIENTE DORADO) --- */
+        /* --- PROCESS GRID --- */
         .process-section { margin: 100px 0; }
         .process-grid {
             display: grid;
@@ -257,38 +292,63 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             overflow: hidden;
         }
-
         .process-card:hover { 
             transform: translateY(-5px); 
             border-color: rgba(255, 237, 198, 0.4);
-            box-shadow: 
-                0 0 30px rgba(255, 237, 198, 0.1),
-                inset 0 0 20px rgba(255, 237, 198, 0.05);
+            box-shadow: 0 0 30px rgba(255, 237, 198, 0.1), inset 0 0 20px rgba(255, 237, 198, 0.05);
         }
-        
         .process-icon { color: var(--text-gold); margin-bottom: 15px; }
         .process-title { color: var(--text-white); font-weight: 600; margin-bottom: 10px; }
         .process-desc { color: var(--text-gray); font-size: 0.9rem; }
 
-        /* --- DOWNLOAD --- */
+        /* --- DOWNLOAD SECTION (GRID LAYOUT) --- */
         .download-section {
             background: #050505;
             border: 1px solid #222;
-            padding: 60px;
+            padding: 0; /* Padding interno manejado por el grid */
             border-radius: 20px;
-            text-align: center;
             margin: 80px 0;
-            position: relative;
             overflow: hidden;
+            position: relative;
         }
-        .download-steps {
-            text-align: left;
-            max-width: 500px;
-            margin: 30px auto;
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        /* Columna Izquierda: Imagen */
+        .download-left {
             background: #0a0a0a;
             padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid #222;
+        }
+        .download-left img {
+            width: 100%;
+            height: auto;
+            max-width: 400px;
             border-radius: 12px;
-            border: 1px solid #222;
+            border: 1px solid #333;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        /* Columna Derecha: Texto y Pasos */
+        .download-right {
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Alineado a la izquierda */
+        }
+
+        .download-steps {
+            text-align: left;
+            width: 100%;
+            margin: 20px 0 30px;
         }
         .d-step {
             display: flex;
@@ -296,27 +356,18 @@
             margin-bottom: 15px;
             color: var(--text-gray);
             font-size: 0.9rem;
+            align-items: flex-start;
         }
         .d-number {
-            background: #222;
-            color: #fff;
+            background: var(--text-gold);
+            color: #000;
+            font-weight: bold;
             width: 24px; height: 24px;
             display: flex; align-items: center; justify-content: center;
             border-radius: 50%;
             font-size: 0.8rem;
             flex-shrink: 0;
-        }
-
-        .code-wrapper {
-            background: #000;
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 6px;
-            border: 1px dashed #333;
-            font-family: 'Fira Code', monospace;
-            color: var(--text-gold);
-            margin-top: 10px;
-            font-size: 0.85rem;
+            margin-top: 3px;
         }
 
         /* --- CAL.COM --- */
@@ -328,7 +379,6 @@
             padding-bottom: 40px;
         }
         .cal-wrapper { width: 100%; overflow: hidden !important; }
-        
         #my-cal-inline-llamada-de-diagnostico::-webkit-scrollbar { display: none; }
         #my-cal-inline-llamada-de-diagnostico { -ms-overflow-style: none; scrollbar-width: none; }
 
@@ -336,6 +386,9 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.2rem; }
             .comparison, .process-grid { grid-template-columns: 1fr; }
+            .download-grid { grid-template-columns: 1fr; } /* Stack en móvil */
+            .download-left { border-right: none; border-bottom: 1px solid #222; padding: 40px; }
+            .download-right { padding: 30px; align-items: center; text-align: center; }
             .scroll-perspective-wrapper { height: auto; margin-bottom: 50px; }
             .scroll-card-3d { height: 300px; position: relative; top: 0; transform: none !important; }
         }
@@ -396,19 +449,21 @@
                 </div>
             </div>
 
-            <div class="glass-panel gold-glow">
-                <div class="card-header text-gold">
-                    <i data-lucide="check-circle-2" style="color: var(--accent-green);"></i>
-                    Con este sistema
-                </div>
-                <div class="list-item">
-                    <i data-lucide="zap" size="18" class="text-gold"></i> <span class="text-white">[beneficio1]</span>
-                </div>
-                <div class="list-item">
-                    <i data-lucide="layout-grid" size="18" class="text-gold"></i> <span class="text-white">[beneficio2]</span>
-                </div>
-                <div class="list-item">
-                    <i data-lucide="trending-up" size="18" class="text-gold"></i> <span class="text-white">[beneficio3]</span>
+            <div class="magic-card">
+                <div class="magic-content">
+                    <div class="card-header text-gold">
+                        <i data-lucide="check-circle-2" style="color: var(--accent-green);"></i>
+                        Con este sistema
+                    </div>
+                    <div class="list-item">
+                        <i data-lucide="zap" size="18" class="text-gold"></i> <span class="text-white">[beneficio1]</span>
+                    </div>
+                    <div class="list-item">
+                        <i data-lucide="layout-grid" size="18" class="text-gold"></i> <span class="text-white">[beneficio2]</span>
+                    </div>
+                    <div class="list-item">
+                        <i data-lucide="trending-up" size="18" class="text-gold"></i> <span class="text-white">[beneficio3]</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -454,31 +509,35 @@
         </section>
 
         <section id="download" class="download-section">
-            <i data-lucide="download-cloud" size="42" class="text-gold"></i>
-            <h2 style="margin-top: 15px;">Implementa el Blueprint</h2>
-            <p style="margin-bottom: 20px; color: #666;">Descarga el archivo JSON e impórtalo en tu cuenta.</p>
-            
-            <div class="download-steps">
-                <div class="d-step">
-                    <div class="d-number">1</div>
-                    <div>Descarga el archivo .json haciendo clic en el botón.</div>
+            <div class="download-grid">
+                <div class="download-left">
+                    <img src="tutorial.png" alt="Tutorial de importación">
                 </div>
-                <div class="d-step">
-                    <div class="d-number">2</div>
-                    <div>Ve a tu panel de automatización.</div>
-                </div>
-                <div class="d-step">
-                    <div class="d-number">3</div>
-                    <div>Selecciona <strong>"Import from File"</strong> y carga este archivo.</div>
-                </div>
-                <div style="text-align: center; margin-top: 10px;">
-                     <div class="code-wrapper">&lt; system-config-v1.json /&gt;</div>
+
+                <div class="download-right">
+                    <h2 style="line-height: 1.2;">Implementa el Blueprint</h2>
+                    <p style="margin-top: 10px; color: #888;">Sigue estos pasos para importarlo:</p>
+                    
+                    <div class="download-steps">
+                        <div class="d-step">
+                            <div class="d-number">1</div>
+                            <div>Descarga el archivo .json con el botón.</div>
+                        </div>
+                        <div class="d-step">
+                            <div class="d-number">2</div>
+                            <div>Ve a tu panel de automatización (n8n/Make).</div>
+                        </div>
+                        <div class="d-step">
+                            <div class="d-number">3</div>
+                            <div>Selecciona <strong>"Import from File"</strong> y carga el archivo.</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary">
+                        Descargar sistema
+                    </button>
                 </div>
             </div>
-
-            <button class="btn btn-secondary">
-                Descargar Archivo
-            </button>
         </section>
 
         <div style="text-align: center; margin: 100px 0 60px;">
