@@ -14,23 +14,23 @@
     <style>
         /* --- CONFIGURACIÓN GLOBAL --- */
         :root {
-            --bg-color: #000121;       /* Azul Noche Plano */
+            --bg-color: #000000;       /* Negro Puro */
+            --card-bg: #080808;        /* Casi negro para las tarjetas */
             
             --text-gold: #ffedc6;      /* Dorado Pálido */
             --text-white: #ffffff;
-            --text-gray: #c1c1c1;      /* Gris Plata */
+            --text-gray: #a0a0a0;      /* Gris un poco más claro para contraste en negro */
             
-            --accent-green: #00FF94;   /* Detalles de éxito */
-            --accent-orange: #FF9900;  /* Alertas */
+            --accent-green: #00FF94;   
+            --accent-orange: #FF9900;  
             
-            --card-bg: rgba(255, 255, 255, 0.02); /* Casi invisible */
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-gold: rgba(255, 237, 198, 0.3);
+            /* EL EFECTO GLOW (Luz en contornos) */
+            --border-glow: 1px solid rgba(255, 255, 255, 0.08);
+            --box-shadow-glow: 0 0 25px rgba(255, 255, 255, 0.03);
+            --border-gold: 1px solid rgba(255, 237, 198, 0.3);
         }
 
-        html {
-            scroll-behavior: smooth; /* Scroll suave al navegar */
-        }
+        html { scroll-behavior: smooth; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -60,11 +60,11 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 26px;
-            border-radius: 6px;
+            padding: 12px 28px;
+            border-radius: 8px;
             font-weight: 500;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
             border: none;
             font-size: 0.95rem;
@@ -72,12 +72,12 @@
         
         .btn-primary {
             background-color: var(--text-gold);
-            color: #000121;
+            color: #000000;
         }
         .btn-primary:hover {
             background-color: #fff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 237, 198, 0.2);
+            box-shadow: 0 0 20px rgba(255, 237, 198, 0.3); /* Glow dorado */
         }
 
         .btn-secondary {
@@ -87,146 +87,184 @@
         }
         .btn-secondary:hover {
             background: rgba(255, 237, 198, 0.05);
+            box-shadow: 0 0 15px rgba(255, 237, 198, 0.1);
         }
 
         /* --- NAVBAR --- */
         nav {
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border-subtle);
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             position: sticky;
             top: 0;
-            z-index: 1000; /* Z-index alto para estar siempre arriba */
-            background: rgba(0, 1, 33, 0.95); 
-            backdrop-filter: blur(10px);
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8); 
+            backdrop-filter: blur(12px);
         }
 
         /* --- HERO SECTION --- */
         .hero {
-            padding: 100px 0 80px;
+            padding: 120px 0 80px;
             text-align: center;
         }
         .hero h1 {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             line-height: 1.15;
             margin-bottom: 25px;
+            letter-spacing: -1px;
         }
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             max-width: 650px;
             margin: 0 auto 40px;
             color: var(--text-gray);
         }
         .highlight-badge {
             display: inline-block;
-            padding: 5px 15px;
-            border: 1px solid var(--border-subtle);
+            padding: 6px 18px;
+            border: var(--border-glow);
+            background: rgba(255,255,255,0.02);
             border-radius: 50px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-size: 0.85rem;
             letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--text-gray);
         }
 
-        /* --- COMPARISON --- */
+        /* --- CARDS & GLOW EFFECT --- */
         .comparison {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
-            margin: 60px 0;
+            margin: 80px 0;
         }
         .card {
             background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border-subtle);
+            padding: 45px;
+            border-radius: 16px;
+            /* Aquí está el efecto de luz sutil en los bordes */
+            border: var(--border-glow);
+            box-shadow: var(--box-shadow-glow);
+            transition: transform 0.3s ease;
         }
-        .card.gold-border {
-            border: 1px solid var(--border-gold);
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.15);
         }
+        
+        .card.gold-highlight {
+            border: var(--border-gold);
+            box-shadow: 0 0 30px rgba(255, 237, 198, 0.05); /* Glow dorado muy sutil */
+        }
+
         .card-header {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 25px;
             font-weight: 500;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--text-white);
         }
         .list-item {
             display: flex;
             align-items: start;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             color: var(--text-gray);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
         /* --- LOGIC VISUAL --- */
-        .logic-section { padding: 80px 0; }
+        .logic-section { padding: 100px 0; }
         .flowchart-container {
-            background: rgba(255,255,255,0.02);
-            border: 1px dashed var(--text-gray);
-            border-radius: 12px;
-            height: 350px;
+            background: #050505;
+            border: 1px dashed rgba(255,255,255,0.15);
+            border-radius: 16px;
+            height: 400px; /* Más alto para mejor visualización */
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 40px 0;
+            margin: 50px 0;
+            position: relative;
         }
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .step h3 { margin: 15px 0 8px; font-size: 1.2rem; color: var(--text-gold); }
+
+        /* --- DOWNLOAD SECTION (REDISEÑADO) --- */
+        .download-section {
+            background: #050505;
+            padding: 60px;
+            border-radius: 20px;
+            border: var(--border-glow);
+            box-shadow: var(--box-shadow-glow);
+            text-align: center;
+            margin: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Grid interno para explicar la importación */
+        .download-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             gap: 30px;
         }
-        .step h3 { margin: 15px 0 8px; font-size: 1.1rem; color: var(--text-gold); }
-
-        /* --- DOWNLOAD --- */
-        .download-section {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 50px;
-            border-radius: 12px;
-            border: 1px solid var(--border-gold);
-            text-align: center;
-            margin: 80px 0;
-        }
-        .code-block {
-            background: #050510;
-            font-family: 'Fira Code', monospace;
+        
+        .import-guide {
+            background: #111;
             padding: 20px;
-            border-radius: 6px;
-            margin: 25px auto;
-            max-width: 450px;
-            color: var(--text-gold);
-            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            border: 1px solid #222;
+            max-width: 500px;
+            margin: 0 auto;
             text-align: left;
+        }
+        .import-step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
             font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+        .step-number {
+            background: rgba(255,255,255,0.1);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            color: var(--text-white);
+            flex-shrink: 0;
         }
 
-        /* --- CAL.COM SECTION (FIXED) --- */
+        /* --- CAL.COM & PARTNER SECTION --- */
+        .partner-section {
+            text-align: center;
+            padding: 40px 0 60px;
+        }
         .cal-section {
-            /* Esto asegura que al hacer click en el link, el navegador 
-               deje 120px de espacio arriba para no quedar tapado por el navbar */
             scroll-margin-top: 120px; 
-            
-            /* Esto centra verticalmente el calendario en la pantalla si hay espacio */
             min-height: 90vh;
             display: flex;
             align-items: center; 
             justify-content: center;
             padding-bottom: 40px;
         }
-        
-        /* Clase wrapper para limitar ancho si es necesario */
-        .cal-wrapper {
-            width: 100%;
-            /* Ajusta esto si quieres que sea más ancho o angosto */
-        }
+        .cal-wrapper { width: 100%; }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.2rem; }
             .comparison, .steps-grid { grid-template-columns: 1fr; }
+            .download-section { padding: 30px; }
         }
     </style>
 </head>
@@ -234,7 +272,7 @@
 
     <nav>
         <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-white);">
+            <div style="font-weight: 600; font-size: 1.1rem; letter-spacing: -0.5px; color: var(--text-white);">
                 Facundo Cortines
             </div>
             <a href="#booking" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">
@@ -260,7 +298,7 @@
             </p>
             
             <a href="#download" class="btn btn-primary">
-                Descargar el Sistema <i data-lucide="arrow-down"></i>
+                Obtener Sistema <i data-lucide="arrow-down"></i>
             </a>
         </section>
 
@@ -268,37 +306,47 @@
             <div class="card">
                 <div class="card-header" style="opacity: 0.6;">
                     <i data-lucide="x" style="color: #FF4444;"></i>
-                    El Método Manual
+                    Gestión Reactiva
                 </div>
                 <div class="list-item">
                     <i data-lucide="clock" size="18"></i>
-                    <span>Horas perdidas en procesos repetitivos.</span>
+                    <span>Operativa manual y lenta.</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="file-warning" size="18"></i>
-                    <span>Datos desordenados y errores frecuentes.</span>
+                    <i data-lucide="alert-circle" size="18"></i>
+                    <span>Falta de visibilidad y control.</span>
+                </div>
+                <div class="list-item">
+                    <i data-lucide="bar-chart-2" size="18"></i>
+                    <span>Techo de crecimiento por falta de tiempo.</span>
                 </div>
             </div>
 
-            <div class="card gold-border">
+            <div class="card gold-highlight">
                 <div class="card-header text-gold">
                     <i data-lucide="check-circle-2" style="color: var(--accent-green);"></i>
-                    Con este Sistema
+                    Operación Escalable
                 </div>
                 <div class="list-item">
                     <i data-lucide="zap" size="18" class="text-gold"></i>
-                    <span class="text-white">Ejecución instantánea 24/7.</span>
+                    <span class="text-white">Flujos automáticos y predecibles.</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="shield-check" size="18" class="text-gold"></i>
-                    <span class="text-white">Precisión absoluta en los datos.</span>
+                    <i data-lucide="layout-grid" size="18" class="text-gold"></i>
+                    <span class="text-white">Orden y estructura estratégica.</span>
+                </div>
+                <div class="list-item">
+                    <i data-lucide="trending-up" size="18" class="text-gold"></i>
+                    <span class="text-white">Foco 100% en escalar el negocio.</span>
                 </div>
             </div>
         </section>
 
         <section class="logic-section text-center">
             <h2>Entendiendo el Sistema</h2>
-            <p style="margin-top: 10px;">Visualiza cómo funciona el flujo lógico.</p>
+            <p style="margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Así es como transformamos el caos en un proceso estructurado.
+            </p>
             
             <div class="flowchart-container">
                 <span style="color: var(--text-gray); font-style: italic;">
@@ -309,46 +357,65 @@
 
             <div class="steps-grid text-start">
                 <div class="step">
-                    <i data-lucide="mouse-pointer-2" class="text-gold" size="28"></i>
-                    <h3>1. Input</h3>
-                    <p>El sistema detecta el evento inicial automáticamente.</p>
+                    <i data-lucide="mouse-pointer-2" class="text-gold" size="30"></i>
+                    <h3>1. Disparador</h3>
+                    <p>El sistema detecta la necesidad inicial sin intervención humana.</p>
                 </div>
                 <div class="step">
-                    <i data-lucide="cpu" class="text-gold" size="28"></i>
-                    <h3>2. Proceso IA</h3>
-                    <p>Los agentes analizan y transforman la información.</p>
+                    <i data-lucide="cpu" class="text-gold" size="30"></i>
+                    <h3>2. Lógica & IA</h3>
+                    <p>Procesamos la información siguiendo tus reglas de negocio.</p>
                 </div>
                 <div class="step">
-                    <i data-lucide="send" class="text-gold" size="28"></i>
-                    <h3>3. Output</h3>
-                    <p>El resultado final se entrega donde lo necesitas.</p>
+                    <i data-lucide="send" class="text-gold" size="30"></i>
+                    <h3>3. Ejecución</h3>
+                    <p>El resultado se entrega o sincroniza donde aporta valor.</p>
                 </div>
             </div>
         </section>
 
         <section id="download" class="download-section">
-            <i data-lucide="file-code-2" size="42" class="text-gold"></i>
-            <h2 style="margin-top: 20px;">Descargar Blueprint</h2>
-            <p>Archivo JSON listo para importar.</p>
-            
-            <div class="code-block">
-                > sistema_v1.json <span class="text-gold">_</span>
-            </div>
-            
-            <button class="btn btn-secondary">
-                Descargar Archivo .JSON
-            </button>
+            <div class="download-content">
+                <div>
+                    <i data-lucide="download-cloud" size="42" class="text-gold"></i>
+                    <h2 style="margin-top: 15px;">Implementa este Sistema</h2>
+                    <p style="margin-bottom: 30px;">Sigue estos pasos sencillos para importarlo en tu cuenta.</p>
+                </div>
 
-            <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-gray);">
-                <i data-lucide="info" size="14" style="vertical-align: middle;"></i>
-                Requiere configuración de API Keys propias.
+                <div class="import-guide">
+                    <div style="margin-bottom: 20px; text-align: center; border-bottom: 1px solid #333; padding-bottom: 15px;">
+                         <span style="font-size: 0.8rem; color: #666; display: block; margin-bottom: 5px;">[Imagen del menú "Import from File"]</span>
+                        <i data-lucide="file-input" style="opacity: 0.5;"></i>
+                    </div>
+                    
+                    <div class="import-step">
+                        <div class="step-number">1</div>
+                        <div>Descarga el archivo haciendo click en el botón de abajo.</div>
+                    </div>
+                    <div class="import-step">
+                        <div class="step-number">2</div>
+                        <div>En tu panel, selecciona el menú de opciones y haz click en <strong>"Import from File"</strong>.</div>
+                    </div>
+                    <div class="import-step">
+                        <div class="step-number">3</div>
+                        <div>Selecciona el archivo descargado y el sistema se cargará listo para usar.</div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-secondary" style="margin-top: 20px;">
+                    Obtener Sistema
+                </button>
             </div>
         </section>
 
-        <div class="text-center" style="padding: 40px 0 20px;">
-            <h2 style="margin-bottom: 15px;">¿Quieres evitar la configuración técnica?</h2>
-            <p style="max-width: 600px; margin: 0 auto;">
-                Puedo instalar y adaptar este sistema específicamente para tu negocio.
+        <div class="partner-section">
+            <h2 style="margin-bottom: 20px; font-size: 2.2rem;">
+                ¿Buscas una <span class="text-gold">Estrategia a Medida?</span>
+            </h2>
+            <p style="max-width: 700px; margin: 0 auto; font-size: 1.1rem; color: var(--text-gray);">
+                Las automatizaciones sin estrategia solo aceleran el caos. 
+                Me asocio contigo para ordenar tus operaciones, diseñar flujos eficientes 
+                y construir la infraestructura que tu negocio necesita para escalar.
             </p>
         </div>
 
@@ -367,13 +434,13 @@
 
                 Cal.ns["llamada-de-diagnostico"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#292929"},"dark":{"cal-brand":"#ffedc6"}},"hideEventTypeDetails":false,"layout":"month_view"});
                 </script>
-                </div>
+            </div>
         </section>
 
     </div>
 
-    <footer style="border-top: 1px solid var(--border-subtle); padding: 40px 0; text-align: center; font-size: 0.85rem; color: var(--text-gray);">
-        <p>© 2025 Facundo Cortines.</p>
+    <footer style="border-top: 1px solid rgba(255,255,255,0.05); padding: 40px 0; text-align: center; font-size: 0.85rem; color: #666;">
+        <p>© 2025 Facundo Cortines. Operaciones Escalables.</p>
     </footer>
 
     <script>
