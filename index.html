@@ -3,368 +3,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Automatización | [TU NOMBRE]</title>
+    <title>Sistema de Automatización | Facundo Cortines</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* --- VARIABLES & RESET --- */
+        /* --- VARIABLES & PALETA PREMIUM --- */
         :root {
-            --bg-color: #050515;       /* Azul muy oscuro (casi negro) */
-            --card-bg: #0F0F25;        /* Un poco más claro para tarjetas */
-            --text-main: #FFFFFF;
-            --text-muted: #A0A0B0;
-            --accent-green: #00FF94;   /* Verde Neón Matrix */
-            --accent-orange: #FF9900;  /* Naranja para CTAs */
-            --border-color: #1F1F35;
+            --bg-gradient-start: #28294e;
+            --bg-gradient-mid: #000121;
+            --bg-gradient-end: #000121;
+            
+            --text-gold: #ffedc6;      /* Dorado Pálido (Principal) */
+            --text-white: #ffffff;
+            --text-gray: #c1c1c1;      /* Gris Plata */
+            
+            --accent-green: #00FF94;   /* Solo para "Éxito/Check" */
+            --accent-orange: #FF9900;  /* Solo para detalles urgentes */
+            
+            --card-bg: rgba(255, 255, 255, 0.03); /* Efecto cristal muy sutil */
+            --border-gold: rgba(255, 237, 198, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            /* Degradado de 3 colores según tu banner */
+            background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 40%, var(--bg-gradient-end) 100%);
+            color: var(--text-white);
             line-height: 1.6;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* --- UTILIDADES --- */
-        .text-green { color: var(--accent-green); }
-        .text-orange { color: var(--accent-orange); }
+        /* --- TIPOGRAFÍA & UTILIDADES --- */
+        h1, h2, h3 { color: var(--text-white); }
+        p { color: var(--text-gray); }
+        
+        /* Clase para la fuente manuscrita */
+        .handwritten {
+            font-family: 'Gochi Hand', cursive;
+            color: var(--text-gold);
+            font-size: 1.4em;
+            transform: rotate(-2deg);
+            display: inline-block;
+            margin: 0 5px;
+            text-shadow: 0 0 10px rgba(255, 237, 198, 0.2);
+        }
+
+        .text-gold { color: var(--text-gold); }
         .text-center { text-align: center; }
+
+        /* --- BOTONES PREMIUM --- */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 24px;
+            padding: 14px 28px;
             border-radius: 8px;
             font-weight: 600;
             text-decoration: none;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
             border: none;
+            font-size: 1rem;
         }
+        
+        /* Botón Principal: Dorado (Premium) */
         .btn-primary {
-            background-color: var(--accent-orange);
-            color: #000;
+            background-color: var(--text-gold);
+            color: #000121; /* Contraste alto */
         }
+        .btn-primary:hover {
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(255, 237, 198, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Botón Secundario: Outline Dorado */
         .btn-secondary {
-            background-color: transparent;
-            border: 2px solid var(--accent-green);
-            color: var(--accent-green);
+            background: transparent;
+            border: 1px solid var(--text-gold);
+            color: var(--text-gold);
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .btn-secondary:hover {
+            background: rgba(255, 237, 198, 0.1);
+        }
+
+        /* --- NAVBAR --- */
+        nav {
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(40, 41, 78, 0.8);
+        }
 
         /* --- HERO SECTION --- */
         .hero {
-            padding: 80px 0 60px;
+            padding: 100px 0 80px;
             text-align: center;
         }
-        .badge {
-            background: rgba(0, 255, 148, 0.1);
-            color: var(--accent-green);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0, 255, 148, 0.3);
-        }
         .hero h1 {
-            font-size: 3rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 700;
         }
         .hero p {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            max-width: 600px;
+            font-size: 1.25rem;
+            max-width: 700px;
             margin: 0 auto 40px;
         }
 
-        /* --- COMPARISON (BEFORE/AFTER) --- */
+        /* --- COMPARISON --- */
         .comparison {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 40px 0;
+            gap: 30px;
+            margin: 60px 0;
         }
         .card {
             background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s ease;
+        }
+        .card.premium-border {
+            border: 1px solid var(--border-gold);
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
         }
         .card-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            font-weight: 700;
-            font-size: 1.1rem;
+            gap: 12px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--text-white);
         }
         .list-item {
             display: flex;
             align-items: start;
-            gap: 10px;
-            margin-bottom: 15px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
+            gap: 15px;
+            margin-bottom: 18px;
+            color: var(--text-gray);
+            font-size: 1rem;
         }
-        .icon-red { color: #FF4444; }
-        .icon-green { color: var(--accent-green); }
 
         /* --- LOGIC VISUAL --- */
-        .logic-section {
-            padding: 60px 0;
-            text-align: center;
-        }
-        .flowchart-placeholder {
-            background: #0A0A1F;
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            height: 300px; /* Ajustar según la imagen real */
+        .logic-section { padding: 80px 0; }
+        .flowchart-container {
+            background: rgba(0,0,0,0.3);
+            border: 1px dashed var(--text-gray);
+            border-radius: 16px;
+            height: 350px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 30px 0;
+            margin: 40px 0;
             position: relative;
-            overflow: hidden;
-        }
-        /* Simulación de imagen */
-        .flowchart-placeholder img {
-            max-width: 100%;
-            height: auto;
-            object-fit: contain;
         }
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            text-align: left;
+            gap: 30px;
         }
-        .step h3 { margin-bottom: 10px; font-size: 1.1rem; }
-        .step p { color: var(--text-muted); font-size: 0.9rem; }
+        .step h3 { margin: 15px 0 10px; font-size: 1.2rem; color: var(--text-gold); }
 
-        /* --- DOWNLOAD SECTION --- */
+        /* --- DOWNLOAD (TERMINAL STYLE) --- */
         .download-section {
-            background: linear-gradient(180deg, var(--bg-color) 0%, var(--card-bg) 100%);
-            padding: 40px;
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
+            background: linear-gradient(145deg, #0F0F25 0%, #050510 100%);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid var(--border-gold);
             text-align: center;
-            margin: 60px 0;
+            margin: 80px 0;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         .code-block {
             background: #000;
             font-family: 'Fira Code', monospace;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
-            margin: 20px auto;
-            max-width: 400px;
-            color: var(--accent-green);
-            font-size: 0.9rem;
+            margin: 25px auto;
+            max-width: 450px;
+            color: var(--text-gold);
             border: 1px solid #333;
-        }
-        .tech-warning {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 20px;
-            background: rgba(255, 153, 0, 0.1);
-            padding: 10px;
-            border-radius: 6px;
-            display: inline-block;
+            text-align: left;
         }
 
-        /* --- PIVOT / SALES --- */
-        .pivot-section {
-            text-align: center;
-            padding: 60px 0;
-        }
-        .pivot-card {
-            border: 1px solid var(--accent-green);
-            background: rgba(0, 255, 148, 0.03);
-            border-radius: 16px;
-            padding: 40px;
-        }
-
-        /* --- CAL.COM & FOOTER --- */
-        .cal-section { padding: 40px 0 80px; }
-        .cal-placeholder {
-            width: 100%;
-            height: 600px;
-            background: var(--card-bg);
+        /* --- CAL.COM SECTION --- */
+        .cal-wrapper {
+            margin-top: 40px;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-        }
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: 40px 0;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            overflow: hidden;
+            border: 1px solid var(--border-gold);
+            background: #000; /* Fondo negro para que el embed se funda */
+            height: 700px; /* Altura fija necesaria para el scroll del embed */
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
         }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.2rem; }
             .comparison, .steps-grid { grid-template-columns: 1fr; }
+            .handwritten { display: block; transform: rotate(0); margin: 10px 0; }
         }
     </style>
 </head>
 <body>
 
-    <nav style="padding: 20px 0; border-bottom: 1px solid var(--border-color);">
+    <nav>
         <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-weight: 700; font-size: 1.2rem;">TuMarca<span class="text-green">.ai</span></div>
-            <a href="#booking" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.9rem;">Agendar Llamada</a>
+            <div style="font-weight: 700; font-size: 1.3rem; letter-spacing: -0.5px;">
+                FACUNDO<span class="text-gold">CORTINES</span>
+            </div>
+            <a href="https://cal.com/facundo-cortines/llamada-de-diagnostico" target="_blank" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+                Agendar Llamada
+            </a>
         </div>
     </nav>
 
     <div class="container">
         
         <section class="hero">
-            <div class="badge">🎁 Sistema de Automatización Gratuito</div>
-            <h1>[NOMBRE DEL RESULTADO DEL SISTEMA]<br><span class="text-green">Sin mover un dedo</span></h1>
-            <p>Elimina [DOLOR PRINCIPAL] y recupera [CANTIDAD HORAS] semanales implementando este flujo lógico.</p>
+            <div style="border: 1px solid var(--text-gray); padding: 5px 15px; border-radius: 50px; display: inline-block; margin-bottom: 20px; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text-gray);">
+                Sistema de Automatización Gratuito
+            </div>
+
+            <h1>
+                Consigue <span class="text-gold">[RESULTADO FINAL]</span><br>
+                usando <span class="handwritten">Inteligencia Artificial</span>
+            </h1>
+            
+            <p>
+                Deja de perder tiempo en [TAREA MANUAL ABURRIDA] y escala tus operaciones implementando este flujo lógico probado.
+            </p>
+            
             <a href="#download" class="btn btn-primary">
-                Descargar el Sistema <i data-lucide="download"></i>
+                Descargar el Sistema <i data-lucide="arrow-down"></i>
             </a>
         </section>
 
         <section class="comparison">
-            <div class="card" style="opacity: 0.7;">
-                <div class="card-header">
-                    <i data-lucide="x-circle" class="icon-red"></i>
-                    La Forma Manual
+            <div class="card">
+                <div class="card-header" style="opacity: 0.7;">
+                    <i data-lucide="x" style="color: #FF4444;"></i>
+                    El Método Tradicional
                 </div>
                 <div class="list-item">
-                    <i data-lucide="hourglass" size="18"></i>
-                    <span>Perder tiempo copiando y pegando datos.</span>
+                    <i data-lucide="clock" size="18"></i>
+                    <span>Horas perdidas en procesos manuales.</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="alert-triangle" size="18"></i>
-                    <span>Errores humanos y olvidos frecuentes.</span>
+                    <i data-lucide="file-warning" size="18"></i>
+                    <span>Datos desordenados y errores humanos.</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="frown" size="18"></i>
-                    <span>Tu equipo atrapado en tareas administrativas.</span>
+                    <i data-lucide="activity" size="18"></i>
+                    <span>Crecimiento estancado por "fricción".</span>
                 </div>
             </div>
 
-            <div class="card" style="border-color: var(--accent-green); box-shadow: 0 0 20px rgba(0,255,148,0.1);">
-                <div class="card-header text-green">
-                    <i data-lucide="check-circle" class="icon-green"></i>
-                    Con Este Sistema
+            <div class="card premium-border">
+                <div class="card-header text-gold">
+                    <i data-lucide="check-circle-2" style="color: var(--accent-green);"></i>
+                    Con este Sistema
                 </div>
                 <div class="list-item">
-                    <i data-lucide="zap" size="18" class="icon-green"></i>
-                    <span>Respuesta instantánea 24/7.</span>
+                    <i data-lucide="zap" size="18" class="text-gold"></i>
+                    <span class="text-white">Ejecución instantánea 24/7.</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="database" size="18" class="icon-green"></i>
-                    <span>Datos 100% precisos y sincronizados.</span>
+                    <i data-lucide="shield-check" size="18" class="text-gold"></i>
+                    <span class="text-white">Precisión absoluta en los datos.</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="trending-up" size="18" class="icon-green"></i>
-                    <span>Enfoque total en vender y escalar.</span>
+                    <i data-lucide="bar-chart-3" size="18" class="text-gold"></i>
+                    <span class="text-white">Escalabilidad sin contratar más personal.</span>
                 </div>
             </div>
         </section>
 
-        <section class="logic-section">
-            <h2>¿Cómo funciona la magia?</h2>
-            <p style="color: var(--text-muted);">Una vista rápida al interior de la "Caja Negra".</p>
+        <section class="logic-section text-center">
+            <h2>Entendiendo la <span class="handwritten">Caja Negra</span></h2>
+            <p style="margin-top: 10px;">Así es como transformamos el caos en orden.</p>
             
-            <div class="flowchart-placeholder">
-                <span style="color: var(--text-muted); font-style: italic;">[Aquí inserta la Imagen del Flujo de Make/n8n]</span>
-                </div>
+            <div class="flowchart-container">
+                <span style="color: var(--text-gray); font-style: italic;">
+                    <i data-lucide="image" style="margin-bottom: 10px; display: block; margin: 0 auto;"></i>
+                    [Aquí inserta la captura de tu flujo en Make/n8n]
+                </span>
+            </div>
 
-            <div class="steps-grid">
+            <div class="steps-grid text-start">
                 <div class="step">
-                    <div class="text-green" style="margin-bottom: 10px;"><i data-lucide="mouse-pointer"></i></div>
-                    <h3>1. El Disparador</h3>
-                    <p>Cuando un cliente rellena el formulario o sucede X evento, el sistema despierta.</p>
+                    <i data-lucide="mouse-pointer-2" class="text-gold" size="32"></i>
+                    <h3>1. Input</h3>
+                    <p>El disparador inicia el flujo automáticamente cuando recibes un dato.</p>
                 </div>
                 <div class="step">
-                    <div class="text-green" style="margin-bottom: 10px;"><i data-lucide="cpu"></i></div>
-                    <h3>2. El Procesamiento</h3>
-                    <p>La IA analiza la información, clasifica los datos y toma decisiones lógicas.</p>
+                    <i data-lucide="cpu" class="text-gold" size="32"></i>
+                    <h3>2. Proceso IA</h3>
+                    <p>Los agentes analizan la información y toman decisiones inteligentes.</p>
                 </div>
                 <div class="step">
-                    <div class="text-green" style="margin-bottom: 10px;"><i data-lucide="check-square"></i></div>
-                    <h3>3. El Resultado</h3>
-                    <p>Se envía el correo, se agenda la cita o se actualiza el CRM automáticamente.</p>
+                    <i data-lucide="send" class="text-gold" size="32"></i>
+                    <h3>3. Output</h3>
+                    <p>El resultado final se entrega o se sincroniza donde lo necesitas.</p>
                 </div>
             </div>
         </section>
 
         <section id="download" class="download-section">
-            <i data-lucide="file-json" size="48" class="text-green"></i>
-            <h2 style="margin-top: 15px;">Tu Recurso Gratuito</h2>
-            <p style="color: var(--text-muted);">El blueprint listo para importar en tu cuenta.</p>
+            <i data-lucide="file-code-2" size="48" class="text-gold"></i>
+            <h2 style="margin-top: 20px;">Descarga el Blueprint</h2>
+            <p>El archivo JSON listo para importar en tu sistema.</p>
             
             <div class="code-block">
-                > descargar_sistema_v1.0.json
+                <span style="color: #666;">// Archivo de configuración</span><br>
+                > sistema_automatizado_v1.json <span class="text-gold blink">_</span>
             </div>
             
             <button class="btn btn-secondary">
-                Descargar Blueprint <i data-lucide="arrow-down-to-line"></i>
+                Descargar JSON (.zip)
             </button>
-            <br>
 
-            <div class="tech-warning">
-                <i data-lucide="alert-circle" size="14" style="vertical-align: middle;"></i>
-                <strong>Nota Técnica:</strong> Requiere configurar API Keys, Webhooks y manejo de errores.
+            <div style="margin-top: 30px; font-size: 0.9rem; color: var(--text-gray);">
+                <i data-lucide="alert-triangle" size="14" style="color: var(--accent-orange); vertical-align: middle;"></i>
+                <strong>Requisito:</strong> Necesitarás configurar tus propias API Keys.
             </div>
         </section>
 
-        <section class="pivot-section">
-            <div class="pivot-card">
-                <h2 style="margin-bottom: 20px;">¿Quieres este sistema funcionando en 48hs?</h2>
-                <p style="color: var(--text-muted); margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
-                    Tienes el plano arriba. Si tienes equipo técnico, pueden instalarlo hoy mismo. 
-                    Pero si prefieres <strong>no perder tiempo</strong> configurando APIs, corrigiendo errores de conexión o adaptando el sistema a tus reglas de negocio...
-                </p>
-                <a href="#booking" class="btn btn-primary">
-                    Yo lo implemento por ti <i data-lucide="briefcase"></i>
-                </a>
-            </div>
-        </section>
+        <div class="text-center" style="padding: 40px 0;">
+            <h2 style="font-size: 2.2rem; margin-bottom: 20px;">
+                ¿Prefieres saltarte la <span class="handwritten">configuración técnica?</span>
+            </h2>
+            <p style="max-width: 600px; margin: 0 auto;">
+                Si no quieres lidiar con webhooks, errores de API o mantenimiento, 
+                puedo instalar y personalizar este sistema en tu negocio.
+            </p>
+        </div>
 
-        <section id="booking" class="cal-section">
-            <h2 class="text-center" style="margin-bottom: 30px;">Agenda una Sesión de Diagnóstico</h2>
-            
-            <div class="cal-placeholder">
-                <div>
-                    <i data-lucide="calendar" size="48" style="display: block; margin: 0 auto 10px auto; opacity: 0.5;"></i>
-                    [Aquí se cargará tu calendario de Cal.com]
+        <section id="booking" style="padding-bottom: 80px;">
+            <div class="cal-wrapper">
+                <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-llamada-de-diagnostico"></div>
+                <script type="text/javascript">
+                (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+                Cal("init", "llamada-de-diagnostico", {origin:"https://app.cal.com"});
+
+                Cal.ns["llamada-de-diagnostico"]("inline", {
+                    elementOrSelector:"#my-cal-inline-llamada-de-diagnostico",
+                    config: {"layout":"month_view","theme":"dark"},
+                    calLink: "facundo-cortines/llamada-de-diagnostico",
+                });
+
+                Cal.ns["llamada-de-diagnostico"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#292929"},"dark":{"cal-brand":"#ffedc6"}},"hideEventTypeDetails":false,"layout":"month_view"});
+                </script>
                 </div>
-            </div>
-            </section>
+        </section>
 
     </div>
 
-    <footer>
-        <div class="container">
-            <p>Diseñado con <i data-lucide="heart" size="14" class="text-green"></i> y Automatización.</p>
-            <p style="margin-top: 10px; opacity: 0.5;">© 2024 Tu Nombre. Todos los derechos reservados.</p>
-        </div>
+    <footer style="border-top: 1px solid rgba(255,255,255,0.1); padding: 40px 0; text-align: center; font-size: 0.9rem; color: var(--text-gray);">
+        <p>© 2025 Facundo Cortines. Automatizaciones que escalan.</p>
     </footer>
 
     <script>
