@@ -211,15 +211,21 @@
         .glass-panel {
             background: #0a0a0a;
             padding: 40px;
-            border-radius: 16px; /* Esquinas redondeadas */
-            border: 1px solid rgba(255, 20, 20, 0.3); 
+            border-radius: 16px;
+            border: 1px solid rgba(255, 20, 20, 0.3); /* Borde rojo */
             box-shadow: 
-                0 0 0 1px rgba(255, 0, 0, 0.05), 
-                inset 0 0 20px rgba(255, 0, 0, 0.05), 
-                0 10px 30px rgba(0,0,0,0.8);
-            opacity: 0.9;
+                0 0 0 1px rgba(255, 0, 0, 0.05), /* Borde exterior tenue */
+                inset 0 0 20px rgba(255, 0, 0, 0.05), /* Sombra interior roja */
+                0 10px 30px rgba(0,0,0,0.8); /* Sombra principal */
+            opacity: 0.9; /* Menos opaca */
             transition: all 0.3s;
         }
+        
+        /* REGLA AGREGADA: Texto de desventajas más visible (85% opacidad blanco) */
+        .glass-panel .list-item {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
         .glass-panel:hover {
              transform: translateY(-5px);
              box-shadow: 
@@ -227,22 +233,20 @@
                 inset 0 0 30px rgba(255, 0, 0, 0.1),
                 0 20px 50px rgba(0,0,0,1);
         }
-        .glass-panel .list-item span {
-            opacity: 0.85; /* Texto de desventajas más visible */
-        }
 
         /* --- MAGIC CARD (EFECTO ESTÁTICO MUY BRILLANTE) --- */
         .magic-card {
             position: relative;
             background: #050505;
-            border-radius: 16px; /* Esquinas redondeadas */
+            border-radius: 16px;
             box-shadow: 
-                0 0 100px -20px rgba(255, 237, 198, 0.3), 
-                0 0 0 1px rgba(255, 237, 198, 0.5); 
+                0 0 100px -20px rgba(255, 237, 198, 0.3), /* Glow dorado muy fuerte */
+                0 0 0 1px rgba(255, 237, 198, 0.5); /* Borde de luz fina */
             overflow: hidden;
-            transform: scale(1.02); 
-            border: 1px solid transparent; 
+            transform: scale(1.02); /* Ligeramente más grande */
+            border: 1px solid transparent; /* para que el border-image funcione */
             
+            /* Gradiente de borde estático */
             border-image: linear-gradient(
                 45deg, 
                 #ffedc6 0%, 
@@ -252,6 +256,7 @@
                 #ffedc6 100%
             ) 1;
         }
+        /* Contenido para el interior de la tarjeta */
         .magic-content {
             background: #080808;
             border-radius: 14px;
@@ -384,8 +389,8 @@
             .download-grid { grid-template-columns: 1fr; } 
             .download-left { border-right: none; border-bottom: 1px solid #222; padding: 40px; }
             .download-right { padding: 30px; align-items: center; text-align: center; }
-            .download-steps { text-align: left; } 
-            .d-step { justify-content: flex-start; } 
+            .download-steps { text-align: left; } /* Los pasos se quedan a la izquierda */
+            .d-step { justify-content: flex-start; } /* Los pasos se quedan a la izquierda */
             .scroll-perspective-wrapper { height: auto; margin-bottom: 50px; }
             .scroll-card-3d { height: 300px; position: relative; top: 0; transform: none !important; }
         }
@@ -411,10 +416,8 @@
         <div class="scroll-perspective-wrapper">
             <div class="hero">
                 <div class="highlight-badge">Sistema gratuito</div>
-                <h1>Desata el potencial de tu agencia.</h1>
-                <p>
-                    ¿Tu negocio factura 20K-30K+ USD/mes, pero sientes que estás atrapado en el día a día? Lideras un equipo con visión, pero te ves apagando incendios, persiguiendo cada lead y corrigiendo errores que frenan tu escala. Es hora de dejar de sobrevivir y construir un sistema que trabaje por ti, generando ingresos predecibles y dándote la libertad para enfocar tu energía en el verdadero crecimiento.
-                </p>
+                <h1>[title]</h1>
+                <p>[description]</p>
                 <a href="#download" class="btn btn-primary">Obtener Sistema</a>
             </div>
 
@@ -524,7 +527,7 @@
                         </div>
                         <div class="d-step">
                             <div class="d-number">2</div>
-                            <div>Crea un escenario en n8n.</div>
+                            <div>Crea un escenario en n8n</div>
                         </div>
                         <div class="d-step">
                             <div class="d-number">3</div>
