@@ -139,7 +139,6 @@
             justify-content: flex-start;
             position: relative;
             perspective: 1000px; 
-            /* MARGEN REDUCIDO AQUÍ: De 100px a 20px */
             margin-bottom: 20px;
         }
 
@@ -229,7 +228,7 @@
                 0 20px 50px rgba(0,0,0,1);
         }
 
-        /* --- MAGIC CARD CON HOVER --- */
+        /* --- MAGIC CARD --- */
         .magic-card {
             position: relative;
             border-radius: 16px;
@@ -298,6 +297,74 @@
         .process-icon { color: var(--text-gold); margin-bottom: 15px; }
         .process-title { color: var(--text-white); font-weight: 600; margin-bottom: 10px; }
         .process-desc { color: var(--text-gray); font-size: 0.9rem; }
+
+        /* --- TESTIMONIALS SECTION (NUEVO) --- */
+        .testimonials-section {
+            margin: 60px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        .slider-container {
+            position: relative;
+            max-width: 800px; /* Ancho controlado para lectura */
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .testimonial-card {
+            min-width: 100%; /* Ocupa todo el ancho del contenedor */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .t-content {
+            background: #090909;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 237, 198, 0.1);
+            position: relative;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .t-stars {
+            color: var(--text-gold);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+        }
+        .t-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--text-white);
+            margin-bottom: 15px;
+        }
+        .t-text {
+            color: var(--text-gray);
+            font-style: italic;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .t-dot {
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .t-dot.active {
+            background: var(--text-gold);
+            transform: scale(1.3);
+        }
 
         /* --- DOWNLOAD SECTION (GRID LAYOUT) --- */
         .download-section {
@@ -389,6 +456,7 @@
             .d-step { justify-content: flex-start; } 
             .scroll-perspective-wrapper { min-height: auto; margin-bottom: 50px; }
             .scroll-card-3d { height: 300px; min-height: auto; aspect-ratio: auto; position: relative; top: 0; transform: none !important; }
+            .slider-container { max-width: 100%; }
         }
     </style>
 </head>
@@ -509,6 +577,76 @@
             </div>
         </section>
 
+        <section class="testimonials-section">
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    
+                    <div class="testimonial-card">
+                        <div class="t-content">
+                            <div class="t-stars">
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                            </div>
+                            <div class="t-title">Top-tier AI Expert</div>
+                            <p class="t-text">"Facundo is one of those rare professionals who makes complex work feel effortless. His communication is clear, his execution flawless, and he remains calm and focused no matter the challenge. He doesn’t just solve problems; he dissolves them! Truly a top-tier AI automation expert. Highly recommended."</p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="t-content">
+                            <div class="t-stars">
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                            </div>
+                            <div class="t-title">Insanely Detailed</div>
+                            <p class="t-text">"Facundo is the best automation expert I have worked with. Our team utilized him for a few N8N automations and he was quick, insanely detailed, made super easy-to-follow setup guides, and was very proactive throughout the entire process. If you are looking for someone who knows N8N very well, reach out to Facundo!"</p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="t-content">
+                            <div class="t-stars">
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                            </div>
+                            <div class="t-title">Excellent Team Player</div>
+                            <p class="t-text">"It was a great experience working with Facundo. He's an excellent team player who quickly found a solution to a complex issue in the automation process. Facundo works efficiently and is always available when needed. Even if he doesn't have the solution right away, he remains dedicated until he finds it."</p>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="t-content">
+                            <div class="t-stars">
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                            </div>
+                            <div class="t-title">Over Delivered</div>
+                            <p class="t-text">"Wow! That's what I can say after working with Facundo. He under promised but over delivered. He added some modules to my existing blueprint that I didn't realized possible. He really knows his craft when it comes to automation and coding. You are a gem! I am a very happy client."</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="slider-dots" id="sliderDots">
+                    <div class="t-dot active" onclick="goToSlide(0)"></div>
+                    <div class="t-dot" onclick="goToSlide(1)"></div>
+                    <div class="t-dot" onclick="goToSlide(2)"></div>
+                    <div class="t-dot" onclick="goToSlide(3)"></div>
+                </div>
+            </div>
+        </section>
         <section id="download" class="download-section">
             <div class="download-grid">
                 <div class="download-left">
@@ -580,9 +718,9 @@
     <script>
         lucide.createIcons();
 
+        // --- SCROLL ANIMATION (HERO) ---
         const wrapper = document.querySelector('.scroll-perspective-wrapper');
         const card = document.getElementById('card3d');
-        
         const startRotate = 20; 
         const endRotate = 0;    
         const startScale = 1.05;
@@ -590,14 +728,12 @@
 
         function handleScroll() {
             if (window.innerWidth <= 768) return;
-
             const rect = wrapper.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
             const start = viewportHeight * 0.2; 
             const distance = viewportHeight * 0.8; 
             
             let progress = (start - rect.top) / distance;
-
             if (progress < 0) progress = 0;
             if (progress > 1) progress = 1;
 
@@ -612,6 +748,40 @@
             window.requestAnimationFrame(handleScroll);
         });
         handleScroll();
+
+
+        // --- TESTIMONIALS SLIDER SCRIPT ---
+        let currentSlide = 0;
+        const track = document.getElementById('sliderTrack');
+        const dots = document.querySelectorAll('.t-dot');
+        const totalSlides = dots.length;
+        let slideInterval;
+
+        function updateSlider() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+            resetInterval(); // Reiniciar el timer si el usuario toca manualmente
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000); // 5 Segundos
+        }
+
+        // Iniciar
+        resetInterval();
+
     </script>
 </body>
 </html>
