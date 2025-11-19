@@ -99,6 +99,12 @@
             box-shadow: 0 0 30px rgba(255, 237, 198, 0.4);
         }
 
+        .btn-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            filter: grayscale(1);
+        }
+
         /* --- NAVBAR --- */
         nav {
             padding: 20px 0;
@@ -319,7 +325,6 @@
             padding: 20px;
             box-sizing: border-box;
         }
-        /* Transparente y sin bordes */
         .t-content {
             background: transparent; 
             padding: 20px 0;
@@ -654,7 +659,7 @@
                         </div>
                     </div>
 
-                    <a href="blueprint.txt" download="blueprint.json" class="btn btn-primary">
+                    <a href="#" id="downloadBtn" class="btn btn-primary">
                         Descargar sistema
                     </a>
                 </div>
@@ -755,6 +760,52 @@
         }
 
         setInterval(nextSlide, intervalTime);
+
+
+        // --- AUTO-SCAN BLUEPRINT.JSON (GITHUB API) ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            // Solo funciona si está hosteado (ej: facucortines.github.io/repo)
+            // Si estás en local (file://), no funcionará el autodetect
+            const hostname = window.location.hostname;
+            const pathSegments = window.location.pathname.split('/').filter(p => p);
+
+            if (hostname.includes('github.io') && pathSegments.length > 0) {
+                const user = hostname.split('.')[0];
+                const repo = pathSegments[0];
+                const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/`;
+
+                try {
+                    downloadBtn.textContent = "Buscando sistema...";
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+
+                    if (Array.isArray(data)) {
+                        // Busca el primer archivo que termine en .json
+                        const jsonFile = data.find(file => file.name.endsWith('.json'));
+
+                        if (jsonFile) {
+                            downloadBtn.href = jsonFile.download_url;
+                            downloadBtn.setAttribute('download', jsonFile.name);
+                            downloadBtn.textContent = "Descargar sistema";
+                        } else {
+                            console.warn("No se encontró ningún archivo .json en el repo.");
+                            downloadBtn.textContent = "Error: No encontrado";
+                            downloadBtn.classList.add('btn-disabled');
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error consultando GitHub API:", error);
+                    downloadBtn.textContent = "Error de carga";
+                }
+            } else {
+                // Fallback para desarrollo local o si no es GitHub Pages
+                // Asegúrate de que exista un archivo llamado 'blueprint.json' o edita esto
+                downloadBtn.href = "blueprint.json"; 
+                downloadBtn.setAttribute('download', 'blueprint.json');
+            }
+        });
 
     </script>
 </body>
