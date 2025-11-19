@@ -34,8 +34,7 @@
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* --- CORRECCIÓN DE SCROLL (FIX NAV TAPANDO CONTENIDO) --- */
-        /* Esto hace que al dar click, el scroll frene antes, dejando espacio para el header */
+        /* --- CORRECCIÓN DE SCROLL --- */
         #download, #booking {
             scroll-margin-top: 120px;
         }
@@ -111,24 +110,14 @@
             backdrop-filter: blur(12px);
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (AJUSTADO PADDING) --- */
         .hero {
-            padding: 100px 0 40px;
+            padding: 50px 0 40px; /* Reducido el top padding para subir contenido */
             text-align: center;
             position: relative;
         }
-        .highlight-badge {
-            display: inline-block;
-            padding: 6px 18px;
-            border: var(--border-light);
-            background: rgba(255,255,255,0.03);
-            border-radius: 50px;
-            margin-bottom: 25px;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-gray);
-        }
+        /* (Badge eliminado) */
+
         .hero h1 {
             font-size: 3.5rem;
             line-height: 1.1;
@@ -166,7 +155,7 @@
             box-shadow: 0 50px 100px -20px rgba(0,0,0,1), inset 0 0 0 2px rgba(255,255,255,0.05);
             overflow: hidden;
             position: sticky;
-            top: 150px; 
+            top: 120px; /* Subido un poco más */
             transform-style: preserve-3d;
             will-change: transform;
             display: flex;
@@ -211,7 +200,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            margin: 100px 0;
+            margin: 40px 0 100px; /* Ajustado margen superior */
             align-items: stretch;
         }
         
@@ -240,6 +229,7 @@
                 0 20px 50px rgba(0,0,0,1);
         }
 
+        /* --- MAGIC CARD CON HOVER --- */
         .magic-card {
             position: relative;
             border-radius: 16px;
@@ -255,6 +245,13 @@
             box-shadow: 0 0 100px -20px rgba(255, 237, 198, 0.3);
             transform: scale(1.02); 
             display: flex; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición añadida */
+        }
+        
+        /* EFECTO HOVER AÑADIDO */
+        .magic-card:hover {
+            transform: scale(1.02) translateY(-5px); /* Mantiene la escala y sube */
+            box-shadow: 0 0 120px -10px rgba(255, 237, 198, 0.5); /* Glow más intenso */
         }
         
         .magic-content {
@@ -415,10 +412,9 @@
         
         <div class="scroll-perspective-wrapper">
             <div class="hero">
-                <div class="highlight-badge">Sistema gratuito</div>
                 <h1>[title]</h1>
                 <p>[description]</p>
-                <a href="#download" class="btn btn-primary">Reclamar sistema</a>
+                <a href="#download" class="btn btn-primary">Reclamar sistema gratuito</a>
             </div>
 
             <div class="scroll-card-3d" id="card3d">
@@ -432,6 +428,10 @@
                     <img src="dashboard.png" alt="Dashboard System">
                 </div>
             </div>
+        </div>
+
+        <div class="text-center" style="margin-bottom: 30px; margin-top: 80px;">
+            <h2>Tu negocio...</h2>
         </div>
 
         <section class="comparison">
@@ -473,7 +473,7 @@
         <section class="process-section">
             <div class="text-center">
                 <h2>Arquitectura del Sistema</h2>
-                <p style="color: var(--text-gray); margin-top: 10px;">Cómo fluye la información paso a paso.</p>
+                <p style="color: var(--text-gray); margin-top: 10px;">[descriptionFlow]</p>
             </div>
             
             <div class="process-grid">
