@@ -12,31 +12,26 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* --- CONFIGURACIÓN GLOBAL --- */
+        /* --- VARIABLES & THEME --- */
         :root {
-            --bg-color: #000000;       /* Negro Puro */
-            
-            /* Nuevo fondo de tarjeta con degradado sutil para volumen */
-            --card-gradient: linear-gradient(145deg, #0a0a0a 0%, #050505 100%);
+            --bg-color: #000000;
+            --card-bg: #080808; /* Gris muy oscuro para separar del fondo */
             
             --text-gold: #ffedc6;      
             --text-white: #ffffff;
-            --text-gray: #a0a0a0;      
+            --text-gray: #888888;      
             
             --accent-green: #00FF94;   
             
-            /* EFECTO LEVITACIÓN (Glow) */
-            /* Sombra difusa blanca/azulada para el contorno */
-            --glow-shadow: 0 10px 40px -10px rgba(255, 255, 255, 0.05);
-            --glow-border: 1px solid rgba(255, 255, 255, 0.08);
+            /* EFECTOS DE LUZ Y BORDES */
+            --border-light: 1px solid rgba(255, 255, 255, 0.1);
+            --border-gold: 1px solid rgba(255, 237, 198, 0.2);
             
-            /* Glow específico para lo Dorado */
-            --gold-glow: 0 0 30px rgba(255, 237, 198, 0.08);
-            --gold-border: 1px solid rgba(255, 237, 198, 0.3);
+            --shadow-glow: 0 0 40px rgba(255, 255, 255, 0.03);
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         html { scroll-behavior: smooth; }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -44,21 +39,31 @@
             background-color: var(--bg-color);
             color: var(--text-white);
             line-height: 1.6;
-            min-height: 100vh;
+            overflow-x: hidden; /* Evita scroll horizontal por animaciones */
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* --- TIPOGRAFÍA --- */
-        h1, h2, h3 { color: var(--text-white); font-weight: 600; }
-        p { color: var(--text-gray); font-weight: 300; }
-        
+        /* --- UTILIDADES --- */
         .text-gold { color: var(--text-gold); }
         .text-center { text-align: center; }
+        .blur-bg {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 237, 198, 0.03) 0%, rgba(0,0,0,0) 70%);
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
+            pointer-events: none;
+        }
 
         /* --- BOTONES --- */
         .btn {
@@ -73,17 +78,18 @@
             cursor: pointer;
             border: none;
             font-size: 0.95rem;
+            z-index: 10;
         }
         
         .btn-primary {
             background-color: var(--text-gold);
             color: #000000;
-            box-shadow: 0 0 15px rgba(255, 237, 198, 0.2); /* Glow botón */
+            box-shadow: 0 0 20px rgba(255, 237, 198, 0.15);
         }
         .btn-primary:hover {
             background-color: #fff;
             transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(255, 237, 198, 0.5);
+            box-shadow: 0 0 30px rgba(255, 237, 198, 0.4);
         }
 
         .btn-secondary {
@@ -93,13 +99,12 @@
         }
         .btn-secondary:hover {
             background: rgba(255, 237, 198, 0.05);
-            box-shadow: 0 0 15px rgba(255, 237, 198, 0.1);
         }
 
         /* --- NAVBAR --- */
         nav {
-            padding: 25px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 0;
+            border-bottom: var(--border-light);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -107,27 +112,16 @@
             backdrop-filter: blur(12px);
         }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO SECTION (HEADER DEL SCROLL) --- */
         .hero {
-            padding: 120px 0 80px;
+            padding: 100px 0 40px;
             text-align: center;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.15;
-            margin-bottom: 25px;
-            letter-spacing: -1px;
-        }
-        .hero p {
-            font-size: 1.25rem;
-            max-width: 650px;
-            margin: 0 auto 40px;
-            color: var(--text-gray);
+            position: relative;
         }
         .highlight-badge {
             display: inline-block;
             padding: 6px 18px;
-            border: var(--glow-border);
+            border: var(--border-light);
             background: rgba(255,255,255,0.03);
             border-radius: 50px;
             margin-bottom: 25px;
@@ -135,168 +129,199 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             color: var(--text-gray);
-            box-shadow: 0 0 15px rgba(255,255,255,0.02);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto 30px;
         }
 
-        /* --- CARDS (LEVITACIÓN) --- */
+        /* --- 3D SCROLL CONTAINER (LA MAGIA) --- */
+        .scroll-perspective-wrapper {
+            height: 100vh; /* Espacio para scrollear */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            perspective: 1000px; /* Clave para el 3D */
+            margin-bottom: 100px;
+        }
+
+        .scroll-card-3d {
+            width: 90%;
+            max-width: 1000px;
+            height: 500px; /* Altura de la "tablet" */
+            background: #111;
+            border: 4px solid #333;
+            border-radius: 20px;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,1), inset 0 0 0 2px rgba(255,255,255,0.05);
+            overflow: hidden;
+            position: sticky;
+            top: 150px; /* Donde se queda pegado */
+            
+            /* Estado inicial será controlado por JS, pero ponemos default */
+            transform-style: preserve-3d;
+            will-change: transform;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header falso del navegador/app */
+        .browser-header {
+            height: 40px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            gap: 8px;
+        }
+        .dot { width: 10px; height: 10px; borderRadius: 50%; background: #333; border-radius: 50%; }
+        .dot.red { background: #ff4444; }
+        .dot.yellow { background: #ffb800; }
+        .dot.green { background: #00cc44; }
+
+        .browser-content {
+            flex: 1;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            position: relative;
+        }
+        /* Grid decorativo dentro de la tarjeta */
+        .grid-bg {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-image: linear-gradient(#222 1px, transparent 1px), linear-gradient(90deg, #222 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.3;
+        }
+
+        /* --- COMPARISON SECTION (LEVITATING CARDS) --- */
         .comparison {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin: 80px 0;
         }
-        .card {
-            background: var(--card-gradient);
-            padding: 45px;
+        .glass-panel {
+            background: var(--card-bg);
+            padding: 40px;
             border-radius: 16px;
-            border: var(--glow-border);
-            /* Esta sombra crea el efecto de "flotar" con luz detrás */
-            box-shadow: var(--glow-shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: var(--border-light);
+            box-shadow: var(--shadow-card); /* Sombra negra fuerte para levantar */
+            position: relative;
         }
-        .card:hover {
-            transform: translateY(-5px); /* Se eleva un poco más al hover */
-            box-shadow: 0 20px 50px -10px rgba(255, 255, 255, 0.1);
-            border-color: rgba(255,255,255,0.2);
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(0,0,0,0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
         
-        .card.gold-highlight {
-            border: var(--gold-border);
-            box-shadow: var(--gold-glow); /* Luz dorada detrás */
-        }
-        .card.gold-highlight:hover {
-             box-shadow: 0 0 50px rgba(255, 237, 198, 0.15);
+        .glass-panel.gold-glow {
+            border: var(--border-gold);
+            box-shadow: 0 0 50px rgba(255, 237, 198, 0.05); /* Glow sutil dorado */
         }
 
         .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 25px;
-            font-weight: 500;
-            font-size: 1.2rem;
-            color: var(--text-white);
+            display: flex; align-items: center; gap: 12px; margin-bottom: 25px;
+            font-weight: 600; font-size: 1.1rem; color: var(--text-white);
         }
         .list-item {
-            display: flex;
-            align-items: start;
-            gap: 15px;
-            margin-bottom: 18px;
-            color: var(--text-gray);
-            font-size: 1rem;
+            display: flex; align-items: start; gap: 15px; margin-bottom: 18px;
+            color: var(--text-gray); font-size: 0.95rem;
         }
 
-        /* --- LOGIC VISUAL --- */
-        .logic-section { padding: 100px 0; }
-        .flowchart-container {
-            background: #050505;
-            border: 1px dashed rgba(255,255,255,0.15);
-            border-radius: 16px;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 50px 0;
-            position: relative;
-            /* Glow suave también aquí */
-            box-shadow: var(--glow-shadow); 
-        }
-        .steps-grid {
+        /* --- PROCESS GRID (6 STEPS) --- */
+        .process-section { margin: 100px 0; }
+        .process-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+            gap: 20px;
+            margin-top: 40px;
         }
-        .step h3 { margin: 15px 0 8px; font-size: 1.2rem; color: var(--text-gold); }
+        .process-card {
+            background: #090909;
+            border: 1px solid #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            transition: transform 0.2s ease;
+        }
+        .process-card:hover { transform: translateY(-5px); border-color: #333; }
+        .process-icon { color: var(--text-gold); margin-bottom: 15px; }
+        .process-title { color: var(--text-white); font-weight: 600; margin-bottom: 10px; }
+        .process-desc { color: var(--text-gray); font-size: 0.9rem; }
 
-        /* --- DOWNLOAD SECTION --- */
+        /* --- DOWNLOAD --- */
         .download-section {
-            background: var(--card-gradient);
+            background: #050505;
+            border: 1px solid #222;
             padding: 60px;
             border-radius: 20px;
-            border: var(--glow-border);
-            box-shadow: var(--glow-shadow);
             text-align: center;
-            margin: 100px 0;
+            margin: 80px 0;
             position: relative;
             overflow: hidden;
         }
-        
-        .download-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
-        
-        .import-guide {
-            background: #000; /* Fondo más oscuro para resaltar la imagen */
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #222;
-            max-width: 650px; /* Un poco más ancho para la imagen */
-            margin: 0 auto;
-            text-align: left;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-        }
-        
-        .import-guide img {
-            width: 100%;
-            height: auto;
+        .code-wrapper {
+            background: #000;
+            display: inline-block;
+            padding: 15px 30px;
             border-radius: 8px;
-            border: 1px solid #333;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .import-step {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
+            border: 1px dashed #333;
+            font-family: 'Fira Code', monospace;
             color: var(--text-gray);
-            align-items: center;
-        }
-        .step-number {
-            background: rgba(255,255,255,0.1);
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 0.8rem;
-            color: var(--text-white);
-            flex-shrink: 0;
+            margin: 20px 0;
+            font-size: 0.9rem;
         }
 
         /* --- CAL.COM --- */
-        .partner-section {
-            text-align: center;
-            padding: 40px 0 60px;
-        }
         .cal-section {
-            scroll-margin-top: 120px; 
             min-height: 90vh;
             display: flex;
             align-items: center; 
             justify-content: center;
             padding-bottom: 40px;
         }
-        .cal-wrapper { width: 100%; }
+        .cal-wrapper { width: 100%; overflow: hidden !important; }
+        
+        /* Scrollbar Fixes */
+        #my-cal-inline-llamada-de-diagnostico::-webkit-scrollbar { display: none; }
+        #my-cal-inline-llamada-de-diagnostico { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* --- RESPONSIVE --- */
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.2rem; }
-            .comparison, .steps-grid { grid-template-columns: 1fr; }
-            .download-section { padding: 30px; }
+            .comparison, .process-grid { grid-template-columns: 1fr; }
+            .scroll-perspective-wrapper { height: auto; margin-bottom: 50px; }
+            .scroll-card-3d { height: 300px; position: relative; top: 0; transform: none !important; }
         }
     </style>
 </head>
 <body>
 
+    <div class="blur-bg"></div>
+
     <nav>
         <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-weight: 600; font-size: 1.1rem; letter-spacing: -0.5px; color: var(--text-white);">
+            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-white);">
                 Facundo Cortines
             </div>
             <a href="#booking" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">
@@ -307,151 +332,141 @@
 
     <div class="container">
         
-        <section class="hero">
-            <div class="highlight-badge">
-                Sistema gratuito
+        <div class="scroll-perspective-wrapper">
+            <div class="hero">
+                <div class="highlight-badge">Sistema gratuito</div>
+                <h1>[title]</h1>
+                <p>[description]</p>
+                <a href="#download" class="btn btn-primary">Obtener Sistema</a>
             </div>
 
-            <h1>
-                [title]
-            </h1>
-            
-            <p>
-                [description]
-            </p>
-            
-            <a href="#download" class="btn btn-primary">
-                Obtener Sistema <i data-lucide="arrow-down"></i>
-            </a>
-        </section>
+            <div class="scroll-card-3d" id="card3d">
+                <div class="browser-header">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                    <div style="margin-left: 10px; color: #444; font-size: 0.8rem;">system-dashboard.exe</div>
+                </div>
+                <div class="browser-content">
+                    <div class="grid-bg"></div>
+                    <div style="text-align: center; z-index: 1;">
+                        <i data-lucide="workflow" size="64" class="text-gold" style="opacity: 0.8;"></i>
+                        <h3 style="color: #fff; margin-top: 20px; font-weight: 400;">Visualización del Sistema</h3>
+                        <p style="color: #555; font-size: 0.9rem;">Flujos Automatizados Activos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section class="comparison">
-            <div class="card">
+            <div class="glass-panel">
                 <div class="card-header" style="opacity: 0.6;">
                     <i data-lucide="x" style="color: #FF4444;"></i>
                     Sin este sistema
                 </div>
                 <div class="list-item">
-                    <i data-lucide="x-circle" size="18"></i>
-                    <span>[desventaja1]</span>
+                    <i data-lucide="x-circle" size="18"></i> <span>[desventaja1]</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="x-circle" size="18"></i>
-                    <span>[desventaja2]</span>
+                    <i data-lucide="x-circle" size="18"></i> <span>[desventaja2]</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="x-circle" size="18"></i>
-                    <span>[desventaja3]</span>
+                    <i data-lucide="x-circle" size="18"></i> <span>[desventaja3]</span>
                 </div>
             </div>
 
-            <div class="card gold-highlight">
+            <div class="glass-panel gold-glow">
                 <div class="card-header text-gold">
                     <i data-lucide="check-circle-2" style="color: var(--accent-green);"></i>
                     Con este sistema
                 </div>
                 <div class="list-item">
-                    <i data-lucide="zap" size="18" class="text-gold"></i>
-                    <span class="text-white">[beneficio1]</span>
+                    <i data-lucide="zap" size="18" class="text-gold"></i> <span class="text-white">[beneficio1]</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="layout-grid" size="18" class="text-gold"></i>
-                    <span class="text-white">[beneficio2]</span>
+                    <i data-lucide="layout-grid" size="18" class="text-gold"></i> <span class="text-white">[beneficio2]</span>
                 </div>
                 <div class="list-item">
-                    <i data-lucide="trending-up" size="18" class="text-gold"></i>
-                    <span class="text-white">[beneficio3]</span>
+                    <i data-lucide="trending-up" size="18" class="text-gold"></i> <span class="text-white">[beneficio3]</span>
                 </div>
             </div>
         </section>
 
-        <section class="logic-section text-center">
-            <h2>Entendiendo el Sistema</h2>
-            <p style="margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Así es como transformamos el caos en un proceso estructurado.
-            </p>
-            
-            <div class="flowchart-container">
-                <span style="color: var(--text-gray); font-style: italic;">
-                    <i data-lucide="image" style="margin-bottom: 10px; display: block; margin: 0 auto;"></i>
-                    [Insertar captura del flujo de Make/n8n]
-                </span>
+        <section class="process-section">
+            <div class="text-center">
+                <h2>Arquitectura del Sistema</h2>
+                <p style="color: var(--text-gray); margin-top: 10px;">Cómo fluye la información paso a paso.</p>
             </div>
-
-            <div class="steps-grid text-start">
-                <div class="step">
-                    <i data-lucide="mouse-pointer-2" class="text-gold" size="30"></i>
-                    <h3>[process1]</h3>
-                    <p>[processDescription1]</p>
+            
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-icon"><i data-lucide="mouse-pointer-2" size="28"></i></div>
+                    <div class="process-title">[process1]</div>
+                    <div class="process-desc">[processDescription1]</div>
                 </div>
-                <div class="step">
-                    <i data-lucide="cpu" class="text-gold" size="30"></i>
-                    <h3>[process2]</h3>
-                    <p>[processDescription2]</p>
+                <div class="process-card">
+                    <div class="process-icon"><i data-lucide="cpu" size="28"></i></div>
+                    <div class="process-title">[process2]</div>
+                    <div class="process-desc">[processDescription2]</div>
                 </div>
-                <div class="step">
-                    <i data-lucide="send" class="text-gold" size="30"></i>
-                    <h3>[process3]</h3>
-                    <p>[processDescription3]</p>
+                <div class="process-card">
+                    <div class="process-icon"><i data-lucide="send" size="28"></i></div>
+                    <div class="process-title">[process3]</div>
+                    <div class="process-desc">[processDescription3]</div>
+                </div>
+                <div class="process-card">
+                    <div class="process-icon"><i data-lucide="database" size="28"></i></div>
+                    <div class="process-title">[process4]</div>
+                    <div class="process-desc">[processDescription4]</div>
+                </div>
+                <div class="process-card">
+                    <div class="process-icon"><i data-lucide="filter" size="28"></i></div>
+                    <div class="process-title">[process5]</div>
+                    <div class="process-desc">[processDescription5]</div>
+                </div>
+                <div class="process-card">
+                    <div class="process-icon"><i data-lucide="check-square" size="28"></i></div>
+                    <div class="process-title">[process6]</div>
+                    <div class="process-desc">[processDescription6]</div>
                 </div>
             </div>
         </section>
 
         <section id="download" class="download-section">
-            <div class="download-content">
-                <div>
-                    <i data-lucide="download-cloud" size="42" class="text-gold"></i>
-                    <h2 style="margin-top: 15px;">Implementa este Sistema</h2>
-                    <p style="margin-bottom: 30px;">Sigue estos pasos sencillos para importarlo en tu cuenta.</p>
-                </div>
-
-                <div class="import-guide">
-                    <img src="n8n landing.png" alt="Guía de importación n8n">
-                    
-                    <div class="import-step">
-                        <div class="step-number">1</div>
-                        <div>Descarga el archivo haciendo click en el botón de abajo.</div>
-                    </div>
-                    <div class="import-step">
-                        <div class="step-number">2</div>
-                        <div>En tu panel, selecciona el menú de opciones y haz click en <strong>"Import from File"</strong> como se ve en la imagen.</div>
-                    </div>
-                    <div class="import-step">
-                        <div class="step-number">3</div>
-                        <div>Selecciona el archivo descargado y el sistema se cargará listo para usar.</div>
-                    </div>
-                </div>
-                
-                <button class="btn btn-secondary" style="margin-top: 20px;">
-                    Obtener Sistema
-                </button>
+            <i data-lucide="download-cloud" size="42" class="text-gold"></i>
+            <h2 style="margin-top: 15px;">Implementa el Blueprint</h2>
+            <p style="margin-bottom: 20px; color: #666;">Descarga el archivo JSON e impórtalo.</p>
+            
+            <div class="code-wrapper">
+                &lt; system-config-v1.json /&gt;
             </div>
+            <br>
+            
+            <button class="btn btn-secondary">
+                Descargar Archivo
+            </button>
         </section>
 
-        <div class="partner-section">
+        <div style="text-align: center; margin: 100px 0 60px;">
             <h2 style="margin-bottom: 20px; font-size: 2.2rem;">
-                ¿Buscas una <span class="text-gold">Estrategia a Medida?</span>
+                ¿Necesitas una <span class="text-gold">Estrategia a Medida?</span>
             </h2>
             <p style="max-width: 700px; margin: 0 auto; font-size: 1.1rem; color: var(--text-gray);">
-                Las automatizaciones sin estrategia solo aceleran el caos. 
-                Me asocio contigo para ordenar tus operaciones, diseñar flujos eficientes 
-                y construir la infraestructura que tu negocio necesita para escalar.
+                El código es solo una herramienta. Diseñemos la infraestructura operativa que tu negocio necesita para escalar sin caos.
             </p>
         </div>
 
         <section id="booking" class="cal-section">
             <div class="cal-wrapper">
-                <div style="width:100%;height:100%;overflow:hidden" id="my-cal-inline-llamada-de-diagnostico"></div>
+                <div style="width:100%;height:100%;overflow:hidden !important" id="my-cal-inline-llamada-de-diagnostico"></div>
                 <script type="text/javascript">
                 (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
                 Cal("init", "llamada-de-diagnostico", {origin:"https://app.cal.com"});
-
                 Cal.ns["llamada-de-diagnostico"]("inline", {
                     elementOrSelector:"#my-cal-inline-llamada-de-diagnostico",
                     config: {"layout":"month_view","theme":"dark"},
                     calLink: "facundo-cortines/llamada-de-diagnostico",
                 });
-
                 Cal.ns["llamada-de-diagnostico"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#292929"},"dark":{"cal-brand":"#ffedc6"}},"hideEventTypeDetails":false,"layout":"month_view"});
                 </script>
             </div>
@@ -459,12 +474,60 @@
 
     </div>
 
-    <footer style="border-top: 1px solid rgba(255,255,255,0.05); padding: 40px 0; text-align: center; font-size: 0.85rem; color: #666;">
-        <p>© 2025 Facundo Cortines. Operaciones Escalables.</p>
+    <footer style="border-top: 1px solid #1a1a1a; padding: 40px 0; text-align: center; font-size: 0.85rem; color: #444;">
+        <p>© 2025 Facundo Cortines.</p>
     </footer>
 
     <script>
+        // Inicializar Iconos
         lucide.createIcons();
+
+        // Lógica del Scroll Animation (Replica de Framer Motion ContainerScroll)
+        const wrapper = document.querySelector('.scroll-perspective-wrapper');
+        const card = document.getElementById('card3d');
+        
+        // Configuración
+        const startRotate = 20; // Grados iniciales
+        const endRotate = 0;    // Grados finales
+        const startScale = 1.05;
+        const endScale = 1;
+
+        function handleScroll() {
+            // Solo ejecutar en Desktop
+            if (window.innerWidth <= 768) return;
+
+            const rect = wrapper.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            
+            // Calcular progreso: 0 cuando el elemento entra, 1 cuando sale
+            // Ajustamos para que la animación ocurra en la primera mitad del scroll
+            const start = viewportHeight * 0.2; // Empieza un poco antes
+            const distance = viewportHeight * 0.8; // Distancia de animación
+            
+            // Cuanto hemos scrolleado desde el top del wrapper
+            // Usamos -rect.top porque rect.top es positivo cuando está abajo, negativo cuando sube
+            let progress = (start - rect.top) / distance;
+
+            // Clamp values entre 0 y 1
+            if (progress < 0) progress = 0;
+            if (progress > 1) progress = 1;
+
+            // Interpolar valores
+            const currentRotate = startRotate - (progress * (startRotate - endRotate));
+            const currentScale = startScale - (progress * (startScale - endScale));
+            const currentY = 0 - (progress * 50); // Pequeño translate Y para suavidad
+
+            // Aplicar Transformación
+            card.style.transform = `perspective(1000px) rotateX(${currentRotate}deg) scale(${currentScale}) translateY(${currentY}px)`;
+        }
+
+        // Escuchar el scroll
+        window.addEventListener('scroll', () => {
+            window.requestAnimationFrame(handleScroll);
+        });
+        
+        // Llamada inicial
+        handleScroll();
     </script>
 </body>
 </html>
