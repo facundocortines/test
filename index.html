@@ -80,6 +80,7 @@
             border: none;
             font-size: 0.95rem;
             z-index: 10;
+            font-family: 'Poppins', sans-serif; /* Asegurar la tipografía */
         }
         
         .btn-primary {
@@ -197,7 +198,7 @@
             opacity: 1;
         }
 
-        /* --- COMPARISON SECTION (UPDATED) --- */
+        /* --- COMPARISON SECTION --- */
         .comparison {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -206,55 +207,50 @@
             align-items: stretch;
         }
         
-        /* Tarjeta Normal (Sin Sistema) */
+        /* Tarjeta de Desventajas (Más Dramática) */
         .glass-panel {
             background: #0a0a0a;
             padding: 40px;
             border-radius: 16px;
-            border: var(--border-light);
-            box-shadow: var(--shadow-card);
-            opacity: 0.7;
-            transition: opacity 0.3s;
+            border: 1px solid rgba(255, 20, 20, 0.3); /* Borde rojo */
+            box-shadow: 
+                0 0 0 1px rgba(255, 0, 0, 0.05), /* Borde exterior tenue */
+                inset 0 0 20px rgba(255, 0, 0, 0.05), /* Sombra interior roja */
+                0 10px 30px rgba(0,0,0,0.8); /* Sombra principal */
+            opacity: 0.9; /* Menos opaca */
+            transition: all 0.3s;
         }
-        .glass-panel:hover { opacity: 1; }
+        .glass-panel:hover {
+             transform: translateY(-5px);
+             box-shadow: 
+                0 0 0 2px rgba(255, 0, 0, 0.1),
+                inset 0 0 30px rgba(255, 0, 0, 0.1),
+                0 20px 50px rgba(0,0,0,1);
+        }
 
-        /* --- MAGIC CARD (EFECTO DESTACADO) --- */
+        /* --- MAGIC CARD (EFECTO ESTÁTICO MUY BRILLANTE) --- */
         .magic-card {
             position: relative;
-            background: #050505; /* Fondo oscuro */
+            background: #050505;
             border-radius: 16px;
-            padding: 3px; /* Espacio para el borde animado */
-            box-shadow: 0 0 80px -20px rgba(255, 237, 198, 0.15); /* Luz trasera fuerte */
+            box-shadow: 
+                0 0 100px -20px rgba(255, 237, 198, 0.3), /* Glow dorado muy fuerte */
+                0 0 0 1px rgba(255, 237, 198, 0.5); /* Borde de luz fina */
             overflow: hidden;
             transform: scale(1.02); /* Ligeramente más grande */
+            border: 1px solid transparent; /* para que el border-image funcione */
+            
+            /* Gradiente de borde estático */
+            border-image: linear-gradient(
+                45deg, 
+                #ffedc6 0%, 
+                rgba(255, 237, 198, 0.8) 25%, 
+                rgba(255, 237, 198, 0.5) 50%, 
+                rgba(255, 237, 198, 0.8) 75%, 
+                #ffedc6 100%
+            ) 1;
         }
-
-        /* Animación de rotación de luz */
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* El gradiente que gira detrás */
-        .magic-card::before {
-            content: "";
-            width: 150%;
-            height: 150%;
-            background: conic-gradient(
-                transparent 0deg, 
-                transparent 90deg, 
-                #ffedc6 180deg, 
-                transparent 270deg, 
-                transparent 360deg
-            );
-            position: absolute;
-            top: -25%;
-            left: -25%;
-            animation: rotate 4s linear infinite;
-            z-index: 0;
-        }
-
-        /* El contenedor del contenido para tapar el centro del gradiente */
+        /* Contenido para el interior de la tarjeta */
         .magic-content {
             background: #080808;
             border-radius: 14px;
@@ -305,7 +301,7 @@
         .download-section {
             background: #050505;
             border: 1px solid #222;
-            padding: 0; /* Padding interno manejado por el grid */
+            padding: 0; 
             border-radius: 20px;
             margin: 80px 0;
             overflow: hidden;
@@ -318,7 +314,6 @@
             gap: 0;
         }
 
-        /* Columna Izquierda: Imagen */
         .download-left {
             background: #0a0a0a;
             padding: 20px;
@@ -336,13 +331,12 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
-        /* Columna Derecha: Texto y Pasos */
         .download-right {
             padding: 40px 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: flex-start; /* Alineado a la izquierda */
+            align-items: flex-start; 
         }
 
         .download-steps {
@@ -386,9 +380,11 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.2rem; }
             .comparison, .process-grid { grid-template-columns: 1fr; }
-            .download-grid { grid-template-columns: 1fr; } /* Stack en móvil */
+            .download-grid { grid-template-columns: 1fr; } 
             .download-left { border-right: none; border-bottom: 1px solid #222; padding: 40px; }
             .download-right { padding: 30px; align-items: center; text-align: center; }
+            .download-steps { text-align: left; } /* Los pasos se quedan a la izquierda */
+            .d-step { justify-content: flex-start; } /* Los pasos se quedan a la izquierda */
             .scroll-perspective-wrapper { height: auto; margin-bottom: 50px; }
             .scroll-card-3d { height: 300px; position: relative; top: 0; transform: none !important; }
         }
@@ -515,21 +511,25 @@
                 </div>
 
                 <div class="download-right">
-                    <h2 style="line-height: 1.2;">Implementa el Blueprint</h2>
-                    <p style="margin-top: 10px; color: #888;">Sigue estos pasos para importarlo:</p>
+                    <h2 style="line-height: 1.2;">Instala el Blueprint</h2>
+                    <p style="margin-top: 10px; color: #888;">Sigue estos pasos para importar el sistema:</p>
                     
                     <div class="download-steps">
                         <div class="d-step">
                             <div class="d-number">1</div>
-                            <div>Descarga el archivo .json con el botón.</div>
+                            <div>Dale click al botón "Descargar sistema".</div>
                         </div>
                         <div class="d-step">
                             <div class="d-number">2</div>
-                            <div>Ve a tu panel de automatización (n8n/Make).</div>
+                            <div>Crea un escenario en n8n (o tu herramienta de automatización).</div>
                         </div>
                         <div class="d-step">
                             <div class="d-number">3</div>
-                            <div>Selecciona <strong>"Import from File"</strong> y carga el archivo.</div>
+                            <div>Haz click en los 3 puntos en la esquina superior derecha.</div>
+                        </div>
+                        <div class="d-step">
+                            <div class="d-number">4</div>
+                            <div>Selecciona <strong>"Import from File"</strong> y carga el archivo descargado.</div>
                         </div>
                     </div>
 
@@ -542,10 +542,10 @@
 
         <div style="text-align: center; margin: 100px 0 60px;">
             <h2 style="margin-bottom: 20px; font-size: 2.2rem;">
-                ¿Necesitas una <span class="text-gold">Estrategia a Medida?</span>
+                ¿Cansado de que tu negocio <span class="text-gold">dependa solo de ti?</span>
             </h2>
             <p style="max-width: 700px; margin: 0 auto; font-size: 1.1rem; color: var(--text-gray);">
-                El código es solo una herramienta. Diseñemos la infraestructura operativa que tu negocio necesita para escalar sin caos.
+                Si facturas 20K-30K+ USD/mes con tu agencia o empresa B2B, sabes que el potencial está ahí, pero la operación diaria te consume. Apagas incendios, persigues leads y tu equipo comete errores que tú debes corregir. No necesitas más personal, necesitas un sistema que trabaje por ti, genere ingresos predecibles y te devuelva el control y la libertad para enfocar tu visión en el crecimiento real.
             </p>
         </div>
 
