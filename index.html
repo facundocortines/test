@@ -95,7 +95,7 @@
             border-bottom: 1px solid var(--border-subtle);
             position: sticky;
             top: 0;
-            z-index: 1000; /* Z-index alto para estar siempre arriba */
+            z-index: 1000; 
             background: rgba(0, 1, 33, 0.95); 
             backdrop-filter: blur(10px);
         }
@@ -203,24 +203,44 @@
             font-size: 0.9rem;
         }
 
-        /* --- CAL.COM SECTION (FIXED) --- */
+        /* --- CAL.COM SECTION (CORREGIDO: NO SCROLLBARS) --- */
         .cal-section {
-            /* Esto asegura que al hacer click en el link, el navegador 
-               deje 120px de espacio arriba para no quedar tapado por el navbar */
-            scroll-margin-top: 120px; 
+            /* Margen para que el sticky header no tape el inicio */
+            scroll-margin-top: 100px; 
             
-            /* Esto centra verticalmente el calendario en la pantalla si hay espacio */
-            min-height: 90vh;
+            /* Altura mínima para dar espacio al formulario largo */
+            min-height: 100vh; 
             display: flex;
-            align-items: center; 
+            /* Alineamos arriba para evitar cortes si la pantalla es pequeña */
+            align-items: flex-start; 
             justify-content: center;
-            padding-bottom: 40px;
+            padding-top: 50px;
+            padding-bottom: 50px;
         }
         
-        /* Clase wrapper para limitar ancho si es necesario */
         .cal-wrapper {
             width: 100%;
-            /* Ajusta esto si quieres que sea más ancho o angosto */
+            max-width: 100%;
+            overflow: hidden !important;
+        }
+
+        /* TÉCNICA CSS PARA OCULTAR SCROLLBARS PERO PERMITIR SCROLL */
+        /* Chrome, Safari, Opera */
+        #my-cal-inline-llamada-de-diagnostico::-webkit-scrollbar {
+            display: none;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent;
+        }
+
+        /* Firefox, IE, Edge */
+        #my-cal-inline-llamada-de-diagnostico {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            
+            width: 100% !important;
+            height: 100% !important;
+            overflow: hidden !important; 
         }
 
         /* --- RESPONSIVE --- */
@@ -354,7 +374,9 @@
 
         <section id="booking" class="cal-section">
             <div class="cal-wrapper">
-                <div style="width:100%;height:100%;overflow:hidden" id="my-cal-inline-llamada-de-diagnostico"></div>
+                
+                <div style="width:100%;height:100%;overflow:hidden !important" id="my-cal-inline-llamada-de-diagnostico"></div>
+                
                 <script type="text/javascript">
                 (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
                 Cal("init", "llamada-de-diagnostico", {origin:"https://app.cal.com"});
@@ -365,7 +387,15 @@
                     calLink: "facundo-cortines/llamada-de-diagnostico",
                 });
 
-                Cal.ns["llamada-de-diagnostico"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#292929"},"dark":{"cal-brand":"#ffedc6"}},"hideEventTypeDetails":false,"layout":"month_view"});
+                Cal.ns["llamada-de-diagnostico"]("ui", {
+                    "theme":"dark",
+                    "cssVarsPerTheme":{
+                        "light":{"cal-brand":"#292929"},
+                        "dark":{"cal-brand":"#ffedc6", "cal-text-emphasis":"#ffffff"}
+                    },
+                    "hideEventTypeDetails":false,
+                    "layout":"month_view"
+                });
                 </script>
                 </div>
         </section>
