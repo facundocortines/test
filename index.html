@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sistema de Automatización | Facundo Cortines</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,27 +16,35 @@
         :root {
             --bg-color: #000000;
             --card-bg: #080808;
-            
             --text-gold: #ffedc6;      
             --text-white: #ffffff;
             --text-gray: #888888;      
-            
             --accent-green: #00FF94;   
             
             /* EFECTOS */
             --border-light: 1px solid rgba(255, 255, 255, 0.1);
             --border-gold: 1px solid rgba(255, 237, 198, 0.2);
-            
             --shadow-glow: 0 0 40px rgba(255, 255, 255, 0.03);
             --shadow-card: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         html { scroll-behavior: smooth; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* --- FIX MÓVIL: EVITAR DESPLAZAMIENTO HORIZONTAL --- */
+        html, body {
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+            overflow-x: hidden; /* Clave para evitar el movimiento lateral */
+            width: 100%;
+            max-width: 100%;
+        }
 
-        /* --- CORRECCIÓN DE SCROLL --- */
+        * { box-sizing: border-box; }
+
+        /* Corrección de ancla para scroll */
         #download, #booking {
-            scroll-margin-top: 120px;
+            scroll-margin-top: 100px;
         }
 
         body {
@@ -44,7 +52,6 @@
             background-color: var(--bg-color);
             color: var(--text-white);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         .container {
@@ -53,6 +60,7 @@
             padding: 0 20px;
             position: relative;
             z-index: 2;
+            width: 100%; /* Asegura ajuste en móvil */
         }
 
         /* --- UTILIDADES --- */
@@ -61,7 +69,8 @@
         
         .blur-bg {
             position: absolute;
-            width: 600px;
+            width: 100%; /* Ajustado para no desbordar */
+            max-width: 600px;
             height: 600px;
             background: radial-gradient(circle, rgba(255, 237, 198, 0.03) 0%, rgba(0,0,0,0) 70%);
             top: -200px;
@@ -75,6 +84,7 @@
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center; /* Centrado en móvil */
             gap: 10px;
             padding: 12px 28px;
             border-radius: 8px;
@@ -124,13 +134,13 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3rem; /* Un poco más chico para móvil */
             line-height: 1.1;
             margin-bottom: 20px;
             letter-spacing: -1px;
         }
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--text-gray);
             max-width: 600px;
             margin: 0 auto 30px;
@@ -146,6 +156,8 @@
             position: relative;
             perspective: 1000px; 
             margin-bottom: 20px;
+            width: 100%;
+            overflow: hidden; /* Previene scroll horizontal por rotación */
         }
 
         .scroll-card-3d {
@@ -214,9 +226,7 @@
             padding: 40px;
             border-radius: 16px;
             border: 1px solid rgba(255, 20, 20, 0.3); 
-            box-shadow: 
-                inset 0 0 20px rgba(255, 0, 0, 0.05), 
-                0 10px 30px rgba(0,0,0,0.8); 
+            box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.05), 0 10px 30px rgba(0,0,0,0.8); 
             opacity: 0.9; 
             transition: all 0.3s;
             position: relative;
@@ -229,9 +239,7 @@
         .glass-panel:hover {
              transform: translateY(-5px);
              border-color: rgba(255, 20, 20, 0.5);
-             box-shadow: 
-                inset 0 0 30px rgba(255, 0, 0, 0.1),
-                0 20px 50px rgba(0,0,0,1);
+             box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.1), 0 20px 50px rgba(0,0,0,1);
         }
 
         /* --- MAGIC CARD --- */
@@ -239,14 +247,7 @@
             position: relative;
             border-radius: 16px;
             padding: 1px;
-            background: linear-gradient(
-                45deg, 
-                #ffedc6 0%, 
-                rgba(255, 237, 198, 0.8) 25%, 
-                rgba(255, 237, 198, 0.5) 50%, 
-                rgba(255, 237, 198, 0.8) 75%, 
-                #ffedc6 100%
-            );
+            background: linear-gradient(45deg, #ffedc6 0%, rgba(255, 237, 198, 0.8) 25%, rgba(255, 237, 198, 0.5) 50%, rgba(255, 237, 198, 0.8) 75%, #ffedc6 100%);
             box-shadow: 0 0 100px -20px rgba(255, 237, 198, 0.3);
             transform: scale(1.02); 
             display: flex; 
@@ -355,7 +356,7 @@
         }
         .slider-dots { display: none; }
 
-        /* --- DOWNLOAD SECTION --- */
+        /* --- DOWNLOAD SECTION REESTRUCTURADA --- */
         .download-section {
             background: #050505;
             border: 1px solid #222;
@@ -368,33 +369,36 @@
 
         .download-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr; /* 50% - 50% */
             gap: 0;
         }
 
-        .download-left {
+        /* Contenedor de PASOS (Ahora primero en el HTML o Izquierda) */
+        .download-content {
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; 
+            border-right: 1px solid #222; /* Borde a la derecha en Desktop */
+        }
+
+        /* Contenedor de IMAGEN (Ahora segundo en el HTML o Derecha) */
+        .download-visual {
             background: #0a0a0a;
             padding: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-right: 1px solid #222;
         }
-        .download-left img {
+        
+        .download-visual img {
             width: 100%;
             height: auto;
             max-width: 400px;
             border-radius: 12px;
             border: 1px solid #333;
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .download-right {
-            padding: 40px 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start; 
         }
 
         .download-steps {
@@ -438,11 +442,21 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.2rem; }
             .comparison, .process-grid { grid-template-columns: 1fr; }
-            .download-grid { grid-template-columns: 1fr; } 
-            .download-left { border-right: none; border-bottom: 1px solid #222; padding: 40px; }
-            .download-right { padding: 30px; align-items: center; text-align: center; }
+            .download-grid { grid-template-columns: 1fr; } /* Se apilan verticalmente */
+            
+            /* Orden visual en móvil: Primero contenido (pasos), luego imagen */
+            .download-content { 
+                border-right: none; 
+                border-bottom: 1px solid #222; 
+                padding: 30px; 
+                align-items: center; 
+                text-align: center; 
+            }
+            .download-visual { 
+                padding: 40px; 
+            }
             .download-steps { text-align: left; } 
-            .d-step { justify-content: flex-start; } 
+            
             .scroll-perspective-wrapper { min-height: auto; margin-bottom: 50px; }
             .scroll-card-3d { height: 300px; min-height: auto; aspect-ratio: auto; position: relative; top: 0; transform: none !important; }
             .slider-container { max-width: 100%; }
@@ -478,8 +492,7 @@
                     <div class="dot red"></div>
                     <div class="dot yellow"></div>
                     <div class="dot green"></div>
-                    <div style="margin-left: 10px; color: #444; font-size: 0.8rem;">system-dashboard.exe</div>
-                </div>
+                    </div>
                 <div class="browser-content">
                     <img src="dashboard.png" alt="Dashboard System">
                 </div>
@@ -632,11 +645,8 @@
 
         <section id="download" class="download-section">
             <div class="download-grid">
-                <div class="download-left">
-                    <img src="tutorial.png" alt="Tutorial de importación">
-                </div>
-
-                <div class="download-right">
+                
+                <div class="download-content">
                     <h2 style="line-height: 1.2;">Instala el Blueprint</h2>
                     <p style="margin-top: 10px; color: #888;">Sigue estos pasos para importar el sistema:</p>
                     
@@ -663,6 +673,11 @@
                         Descargar sistema
                     </a>
                 </div>
+
+                <div class="download-visual">
+                    <img src="tutorial.png" alt="Tutorial de importación">
+                </div>
+
             </div>
         </section>
 
@@ -742,11 +757,10 @@
         
         let currentSlide = 0;
         const transitionTime = 500; 
-        const intervalTime = 9000; // 9 segundos
+        const intervalTime = 9000; 
 
         function nextSlide() {
             currentSlide++;
-            
             track.style.transition = `transform ${transitionTime}ms ease-in-out`;
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
 
@@ -765,6 +779,7 @@
         // --- AUTO-SCAN & FORCE DOWNLOAD (GITHUB API + BLOB) ---
         document.addEventListener('DOMContentLoaded', async () => {
             const downloadBtn = document.getElementById('downloadBtn');
+            const dashboardImg = document.querySelector('.browser-content img');
             
             const hostname = window.location.hostname;
             const pathSegments = window.location.pathname.split('/').filter(p => p);
@@ -780,27 +795,22 @@
                     const data = await response.json();
 
                     if (Array.isArray(data)) {
+                        // 1. BLUEPRINT DOWNLOAD
                         const jsonFile = data.find(file => file.name.endsWith('.json'));
-
                         if (jsonFile) {
                             downloadBtn.textContent = "Descargar sistema";
-                            
-                            // CLICK EVENT: Force Download via Blob
                             downloadBtn.addEventListener('click', async (e) => {
-                                e.preventDefault(); // Stop default nav
+                                e.preventDefault();
                                 downloadBtn.textContent = "Descargando...";
-                                
                                 try {
                                     const rawRes = await fetch(jsonFile.download_url);
                                     const blob = await rawRes.blob();
                                     const url = window.URL.createObjectURL(blob);
-                                    
                                     const a = document.createElement('a');
                                     a.href = url;
                                     a.download = jsonFile.name;
                                     document.body.appendChild(a);
                                     a.click();
-                                    
                                     window.URL.revokeObjectURL(url);
                                     document.body.removeChild(a);
                                     downloadBtn.textContent = "Descargar sistema";
@@ -809,11 +819,19 @@
                                     downloadBtn.textContent = "Error";
                                 }
                             });
-
                         } else {
-                            console.warn("No se encontró ningún archivo .json en el repo.");
                             downloadBtn.textContent = "Error: No encontrado";
                             downloadBtn.classList.add('btn-disabled');
+                        }
+
+                        // 2. DASHBOARD IMAGE
+                        const imgFile = data.find(file => 
+                            (file.name.endsWith('.png') || file.name.endsWith('.jpg') || file.name.endsWith('.jpeg')) 
+                            && !file.name.includes('tutorial') 
+                        );
+
+                        if (imgFile && dashboardImg) {
+                            dashboardImg.src = imgFile.download_url;
                         }
                     }
                 } catch (error) {
@@ -826,7 +844,6 @@
                 downloadBtn.setAttribute('download', 'blueprint.json');
             }
         });
-
     </script>
 </body>
 </html>
