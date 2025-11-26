@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html lang="es">
+"<!DOCTYPE html>
+<html lang=""es"">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"">
     <title>Sistema de Automatización | Facundo Cortines</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link rel=""preconnect"" href=""https://fonts.googleapis.com"">
+    <link rel=""preconnect"" href=""https://fonts.gstatic.com"" crossorigin>
+    <link href=""https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400&display=swap"" rel=""stylesheet"">
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src=""https://unpkg.com/lucide@latest""></script>
 
     <style>
-        /* --- VARIABLES & THEME --- */
+        / --- VARIABLES & THEME --- /
         :root {
             --bg-color: #000000;
             --card-bg: #080808;
@@ -21,7 +21,7 @@
             --text-gray: #888888;       
             --accent-green: #00FF94;    
             
-            /* EFECTOS */
+            / EFECTOS /
             --border-light: 1px solid rgba(255, 255, 255, 0.1);
             --border-gold: 1px solid rgba(255, 237, 198, 0.2);
             --shadow-glow: 0 0 40px rgba(255, 255, 255, 0.03);
@@ -30,19 +30,19 @@
 
         html { scroll-behavior: smooth; }
         
-        /* --- FIX MÓVIL: EVITAR DESPLAZAMIENTO HORIZONTAL --- */
+        / --- FIX MÓVIL: EVITAR DESPLAZAMIENTO HORIZONTAL --- /
         html, body {
             margin: 0; 
             padding: 0; 
             box-sizing: border-box;
-            overflow-x: hidden; /* Clave para evitar el movimiento lateral */
+            overflow-x: hidden; / Clave para evitar el movimiento lateral /
             width: 100%;
             max-width: 100%;
         }
 
-        * { box-sizing: border-box; }
+        - { box-sizing: border-box; }
 
-        /* Corrección de ancla para scroll */
+        / Corrección de ancla para scroll /
         #download, #booking {
             scroll-margin-top: 100px;
         }
@@ -60,16 +60,16 @@
             padding: 0 20px;
             position: relative;
             z-index: 2;
-            width: 100%; /* Asegura ajuste en móvil */
+            width: 100%; / Asegura ajuste en móvil /
         }
 
-        /* --- UTILIDADES --- */
+        / --- UTILIDADES --- /
         .text-gold { color: var(--text-gold); }
         .text-center { text-align: center; }
         
         .blur-bg {
             position: absolute;
-            width: 100%; /* Ajustado para no desbordar */
+            width: 100%; / Ajustado para no desbordar /
             max-width: 600px;
             height: 600px;
             background: radial-gradient(circle, rgba(255, 237, 198, 0.03) 0%, rgba(0,0,0,0) 70%);
@@ -80,11 +80,11 @@
             pointer-events: none;
         }
 
-        /* --- BOTONES --- */
+        / --- BOTONES --- /
         .btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center; /* Centrado en móvil */
+            justify-content: center; / Centrado en móvil /
             gap: 10px;
             padding: 12px 28px;
             border-radius: 8px;
@@ -115,7 +115,7 @@
             filter: grayscale(1);
         }
 
-        /* --- NAVBAR --- */
+        / --- NAVBAR --- /
         nav {
             padding: 20px 0;
             border-bottom: var(--border-light);
@@ -126,7 +126,7 @@
             backdrop-filter: blur(12px);
         }
 
-        /* --- HERO SECTION --- */
+        / --- HERO SECTION --- /
         .hero {
             padding: 50px 0 40px; 
             text-align: center;
@@ -134,7 +134,7 @@
         }
 
         .hero h1 {
-            font-size: 3rem; /* Un poco más chico para móvil */
+            font-size: 3rem; / Un poco más chico para móvil /
             line-height: 1.1;
             margin-bottom: 20px;
             letter-spacing: -1px;
@@ -146,7 +146,7 @@
             margin: 0 auto 30px;
         }
 
-        /* --- 3D SCROLL CONTAINER --- */
+        / --- 3D SCROLL CONTAINER --- /
         .scroll-perspective-wrapper {
             min-height: 100vh; 
             display: flex;
@@ -157,7 +157,7 @@
             perspective: 1000px; 
             margin-bottom: 20px;
             width: 100%;
-            overflow: hidden; /* Previene scroll horizontal por rotación */
+            overflow: hidden; / Previene scroll horizontal por rotación /
         }
 
         .scroll-card-3d {
@@ -212,7 +212,7 @@
             opacity: 1;
         }
 
-        /* --- COMPARISON SECTION --- */
+        / --- COMPARISON SECTION --- /
         .comparison {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -242,7 +242,7 @@
              box-shadow: inset 0 0 30px rgba(255, 0, 0, 0.1), 0 20px 50px rgba(0,0,0,1);
         }
 
-        /* --- MAGIC CARD --- */
+        / --- MAGIC CARD --- /
         .magic-card {
             position: relative;
             border-radius: 16px;
@@ -277,7 +277,7 @@
             color: var(--text-gray); font-size: 0.95rem;
         }
 
-        /* --- PROCESS GRID --- */
+        / --- PROCESS GRID --- /
         .process-section { margin: 100px 0 40px; }
         .process-grid {
             display: grid;
@@ -305,7 +305,7 @@
         .process-title { color: var(--text-white); font-weight: 600; margin-bottom: 10px; }
         .process-desc { color: var(--text-gray); font-size: 0.9rem; }
 
-        /* --- TESTIMONIALS SECTION --- */
+        / --- TESTIMONIALS SECTION --- /
         .testimonials-section {
             margin: 20px 0 40px; 
             position: relative;
@@ -356,7 +356,7 @@
         }
         .slider-dots { display: none; }
 
-        /* --- DOWNLOAD SECTION REESTRUCTURADA --- */
+        / --- DOWNLOAD SECTION REESTRUCTURADA --- /
         .download-section {
             background: #050505;
             border: 1px solid #222;
@@ -369,21 +369,21 @@
 
         .download-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 50% - 50% */
+            grid-template-columns: 1fr 1fr; / 50% - 50% /
             gap: 0;
         }
 
-        /* Contenedor de PASOS (Ahora primero en el HTML o Izquierda) */
+        / Contenedor de PASOS (Ahora primero en el HTML o Izquierda) /
         .download-content {
             padding: 40px 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-start; 
-            border-right: 1px solid #222; /* Borde a la derecha en Desktop */
+            border-right: 1px solid #222; / Borde a la derecha en Desktop /
         }
 
-        /* Contenedor de IMAGEN (Ahora segundo en el HTML o Derecha) */
+        / Contenedor de IMAGEN (Ahora segundo en el HTML o Derecha) /
         .download-visual {
             background: #0a0a0a;
             padding: 20px;
@@ -426,7 +426,7 @@
             margin-top: 3px;
         }
 
-        /* --- CAL.COM --- */
+        / --- CAL.COM --- /
         .cal-section {
             min-height: 90vh;
             display: flex;
@@ -438,13 +438,13 @@
         #my-cal-inline-llamada-de-diagnostico::-webkit-scrollbar { display: none; }
         #my-cal-inline-llamada-de-diagnostico { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* RESPONSIVE */
+        / RESPONSIVE /
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.2rem; }
             .comparison, .process-grid { grid-template-columns: 1fr; }
-            .download-grid { grid-template-columns: 1fr; } /* Se apilan verticalmente */
+            .download-grid { grid-template-columns: 1fr; } / Se apilan verticalmente /
             
-            /* Orden visual en móvil: Primero contenido (pasos), luego imagen */
+            / Orden visual en móvil: Primero contenido (pasos), luego imagen /
             .download-content { 
                 border-right: none; 
                 border-bottom: 1px solid #222; 
@@ -465,177 +465,177 @@
 </head>
 <body>
 
-    <div class="blur-bg"></div>
+    <div class=""blur-bg""></div>
 
     <nav>
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text-white);">
+        <div class=""container"" style=""display: flex; justify-content: space-between; align-items: center;"">
+            <div style=""font-weight: 600; font-size: 1.1rem; color: var(--text-white);"">
                 Facundo Cortines
             </div>
-            <a href="#booking" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">
+            <a href=""#booking"" class=""btn btn-primary"" style=""padding: 8px 20px; font-size: 0.9rem;"">
                 Agendar Llamada
             </a>
         </div>
     </nav>
 
-    <div class="container">
+    <div class=""container"">
         
-        <div class="scroll-perspective-wrapper">
-            <div class="hero">
-                <h1>{{ $json['JSON landing'].parseJson().hero_section.title }}</h1>
-                <p>{{ $json['JSON landing'].parseJson().hero_section.description }}</p>
-                <a href="#download" class="btn btn-primary">Reclamar sistema gratuito</a>
+        <div class=""scroll-perspective-wrapper"">
+            <div class=""hero"">
+                <h1>Motor de Propuestas IA</h1>
+                <p>Genera propuestas B2B de $5k en la llamada, sin escribir una línea.</p>
+                <a href=""#download"" class=""btn btn-primary"">Reclamar sistema gratuito</a>
             </div>
 
-            <div class="scroll-card-3d" id="card3d">
-                <div class="browser-header">
-                    <div class="dot red"></div>
-                    <div class="dot yellow"></div>
-                    <div class="dot green"></div>
+            <div class=""scroll-card-3d"" id=""card3d"">
+                <div class=""browser-header"">
+                    <div class=""dot red""></div>
+                    <div class=""dot yellow""></div>
+                    <div class=""dot green""></div>
                     </div>
-                <div class="browser-content">
-                    <img src="dashboard.png" alt="Dashboard System">
+                <div class=""browser-content"">
+                    <img src=""dashboard.png"" alt=""Dashboard System"">
                 </div>
             </div>
         </div>
 
-        <div class="text-center" style="margin-bottom: 30px; margin-top: 0px;">
+        <div class=""text-center"" style=""margin-bottom: 30px; margin-top: 0px;"">
             <h2>La transformación de tu negocio</h2>
         </div>
 
-        <section class="comparison">
-            <div class="glass-panel">
-                <div class="card-header" style="opacity: 0.6;">
-                    <i data-lucide="x" style="color: #FF4444;"></i>
+        <section class=""comparison"">
+            <div class=""glass-panel"">
+                <div class=""card-header"" style=""opacity: 0.6;"">
+                    <i data-lucide=""x"" style=""color: #FF4444;""></i>
                     Sin este sistema
                 </div>
-                <div class="list-item">
-                    <i data-lucide="x-circle" size="18"></i> <span>{{ $json['JSON landing'].parseJson().comparison_section.without_system.desventaja1 }}</span>
+                <div class=""list-item"">
+                    <i data-lucide=""x-circle"" size=""18""></i> <span>Promesas sin enviar por horas</span>
                 </div>
-                <div class="list-item">
-                    <i data-lucide="x-circle" size="18"></i> <span>{{ $json['JSON landing'].parseJson().comparison_section.without_system.desventaja2 }}</span>
+                <div class=""list-item"">
+                    <i data-lucide=""x-circle"" size=""18""></i> <span>Clientes pierden interés rápido</span>
                 </div>
-                <div class="list-item">
-                    <i data-lucide="x-circle" size="18"></i> <span>{{ $json['JSON landing'].parseJson().comparison_section.without_system.desventaja3 }}</span>
+                <div class=""list-item"">
+                    <i data-lucide=""x-circle"" size=""18""></i> <span>Tú atrapado escribiendo propuestas</span>
                 </div>
             </div>
 
-            <div class="magic-card">
-                <div class="magic-content">
-                    <div class="card-header text-gold">
-                        <i data-lucide="check-circle-2" style="color: var(--accent-green);"></i>
+            <div class=""magic-card"">
+                <div class=""magic-content"">
+                    <div class=""card-header text-gold"">
+                        <i data-lucide=""check-circle-2"" style=""color: var(--accent-green);""></i>
                         Con este sistema
                     </div>
-                    <div class="list-item">
-                        <i data-lucide="zap" size="18" class="text-gold"></i> <span class="text-white">{{ $json['JSON landing'].parseJson().comparison_section.with_system.beneficio1 }}</span>
+                    <div class=""list-item"">
+                        <i data-lucide=""zap"" size=""18"" class=""text-gold""></i> <span class=""text-white"">Propuestas enviadas antes de colgar</span>
                     </div>
-                    <div class="list-item">
-                        <i data-lucide="layout-grid" size="18" class="text-gold"></i> <span class="text-white">{{ $json['JSON landing'].parseJson().comparison_section.with_system.beneficio2 }}</span>
+                    <div class=""list-item"">
+                        <i data-lucide=""layout-grid"" size=""18"" class=""text-gold""></i> <span class=""text-white"">Cierres en tiempo real (+conversiones)</span>
                     </div>
-                    <div class="list-item">
-                        <i data-lucide="trending-up" size="18" class="text-gold"></i> <span class="text-white">{{ $json['JSON landing'].parseJson().comparison_section.with_system.beneficio3 }}</span>
+                    <div class=""list-item"">
+                        <i data-lucide=""trending-up"" size=""18"" class=""text-gold""></i> <span class=""text-white"">Cero redacción manual, menos admin</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="process-section">
-            <div class="text-center">
+        <section class=""process-section"">
+            <div class=""text-center"">
                 <h2>Arquitectura del Sistema</h2>
-                <p style="color: var(--text-gray); margin-top: 10px;">{{ $json['JSON landing'].parseJson().architecture_section.descriptionFlow }}</p>
+                <p style=""color: var(--text-gray); margin-top: 10px;"">Flujo probado que convierte tu llamada en una propuesta personalizada y lista para enviar en <60 segundos.</p>
             </div>
             
-            <div class="process-grid">
-                <div class="process-card">
-                    <div class="process-icon"><i data-lucide="mouse-pointer-2" size="28"></i></div>
-                    <div class="process-title">{{ $json['JSON landing'].parseJson().architecture_section.processes[0].process1 }}</div>
-                    <div class="process-desc">{{ $json['JSON landing'].parseJson().architecture_section.processes[0].processDescription1 }}</div>
+            <div class=""process-grid"">
+                <div class=""process-card"">
+                    <div class=""process-icon""><i data-lucide=""mouse-pointer-2"" size=""28""></i></div>
+                    <div class=""process-title"">Intake en llamada</div>
+                    <div class=""process-desc"">Formulario corto completado mientras hablas con el prospecto.</div>
                 </div>
-                <div class="process-card">
-                    <div class="process-icon"><i data-lucide="cpu" size="28"></i></div>
-                    <div class="process-title">{{ $json['JSON landing'].parseJson().architecture_section.processes[1].process2 }}</div>
-                    <div class="process-desc">{{ $json['JSON landing'].parseJson().architecture_section.processes[1].processDescription2 }}</div>
+                <div class=""process-card"">
+                    <div class=""process-icon""><i data-lucide=""cpu"" size=""28""></i></div>
+                    <div class=""process-title"">Inyector de contexto</div>
+                    <div class=""process-desc"">Prompt sistema en OpenAI que incorpora tu tono y estructura de oferta.</div>
                 </div>
-                <div class="process-card">
-                    <div class="process-icon"><i data-lucide="send" size="28"></i></div>
-                    <div class="process-title">{{ $json['JSON landing'].parseJson().architecture_section.processes[2].process3 }}</div>
-                    <div class="process-desc">{{ $json['JSON landing'].parseJson().architecture_section.processes[2].processDescription3 }}</div>
+                <div class=""process-card"">
+                    <div class=""process-icon""><i data-lucide=""send"" size=""28""></i></div>
+                    <div class=""process-title"">Formateo JSON</div>
+                    <div class=""process-desc"">La IA devuelve un JSON estructurado para que lo lea la automatización.</div>
                 </div>
-                <div class="process-card">
-                    <div class="process-icon"><i data-lucide="database" size="28"></i></div>
-                    <div class="process-title">{{ $json['JSON landing'].parseJson().architecture_section.processes[3].process4 }}</div>
-                    <div class="process-desc">{{ $json['JSON landing'].parseJson().architecture_section.processes[3].processDescription4 }}</div>
+                <div class=""process-card"">
+                    <div class=""process-icon""><i data-lucide=""database"" size=""28""></i></div>
+                    <div class=""process-title"">Plantilla dinámica</div>
+                    <div class=""process-desc"">Copia la plantilla Google Slides/PandaDoc y sustituye variables.</div>
                 </div>
-                <div class="process-card">
-                    <div class="process-icon"><i data-lucide="filter" size="28"></i></div>
-                    <div class="process-title">{{ $json['JSON landing'].parseJson().architecture_section.processes[4].process5 }}</div>
-                    <div class="process-desc">{{ $json['JSON landing'].parseJson().architecture_section.processes[4].processDescription5 }}</div>
+                <div class=""process-card"">
+                    <div class=""process-icon""><i data-lucide=""filter"" size=""28""></i></div>
+                    <div class=""process-title"">Generación PDF</div>
+                    <div class=""process-desc"">n8n inyecta datos y genera un PDF visualmente perfecto.</div>
                 </div>
-                <div class="process-card">
-                    <div class="process-icon"><i data-lucide="check-square" size="28"></i></div>
-                    <div class="process-title">{{ $json['JSON landing'].parseJson().architecture_section.processes[5].process6 }}</div>
-                    <div class="process-desc">{{ $json['JSON landing'].parseJson().architecture_section.processes[5].processDescription6 }}</div>
+                <div class=""process-card"">
+                    <div class=""process-icon""><i data-lucide=""check-square"" size=""28""></i></div>
+                    <div class=""process-title"">Entrega instantánea</div>
+                    <div class=""process-desc"">Envía email con la propuesta (y factura opcional) en <60s.</div>
                 </div>
             </div>
         </section>
 
-        <section class="testimonials-section">
-            <div class="slider-container">
-                <div class="slider-track" id="sliderTrack">
+        <section class=""testimonials-section"">
+            <div class=""slider-container"">
+                <div class=""slider-track"" id=""sliderTrack"">
                     
-                    <div class="testimonial-card">
-                        <div class="t-content">
-                            <div class="t-stars">
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                    <div class=""testimonial-card"">
+                        <div class=""t-content"">
+                            <div class=""t-stars"">
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
                             </div>
-                            <div class="t-title">Top-tier AI Expert</div>
-                            <p class="t-text">"Facundo is one of those rare professionals who makes complex work feel effortless. His communication is clear, his execution flawless, and he remains calm and focused no matter the challenge. He doesn’t just solve problems; he dissolves them! Truly a top-tier AI automation expert. Highly recommended."</p>
+                            <div class=""t-title"">Top-tier AI Expert</div>
+                            <p class=""t-text"">""Facundo is one of those rare professionals who makes complex work feel effortless. His communication is clear, his execution flawless, and he remains calm and focused no matter the challenge. He doesn’t just solve problems; he dissolves them! Truly a top-tier AI automation expert. Highly recommended.""</p>
                         </div>
                     </div>
 
-                    <div class="testimonial-card">
-                        <div class="t-content">
-                            <div class="t-stars">
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                    <div class=""testimonial-card"">
+                        <div class=""t-content"">
+                            <div class=""t-stars"">
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
                             </div>
-                            <div class="t-title">Insanely Detailed</div>
-                            <p class="t-text">"Facundo is the best automation expert I have worked with. Our team utilized him for a few N8N automations and he was quick, insanely detailed, made super easy-to-follow setup guides, and was very proactive throughout the entire process. If you are looking for someone who knows N8N very well, reach out to Facundo!"</p>
+                            <div class=""t-title"">Insanely Detailed</div>
+                            <p class=""t-text"">""Facundo is the best automation expert I have worked with. Our team utilized him for a few N8N automations and he was quick, insanely detailed, made super easy-to-follow setup guides, and was very proactive throughout the entire process. If you are looking for someone who knows N8N very well, reach out to Facundo!""</p>
                         </div>
                     </div>
 
-                    <div class="testimonial-card">
-                        <div class="t-content">
-                            <div class="t-stars">
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                    <div class=""testimonial-card"">
+                        <div class=""t-content"">
+                            <div class=""t-stars"">
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
                             </div>
-                            <div class="t-title">Excellent Team Player</div>
-                            <p class="t-text">"It was a great experience working with Facundo. He's an excellent team player who quickly found a solution to a complex issue in the automation process. Facundo works efficiently and is always available when needed. Even if he doesn't have the solution right away, he remains dedicated until he finds it."</p>
+                            <div class=""t-title"">Excellent Team Player</div>
+                            <p class=""t-text"">""It was a great experience working with Facundo. He's an excellent team player who quickly found a solution to a complex issue in the automation process. Facundo works efficiently and is always available when needed. Even if he doesn't have the solution right away, he remains dedicated until he finds it.""</p>
                         </div>
                     </div>
 
-                    <div class="testimonial-card">
-                        <div class="t-content">
-                            <div class="t-stars">
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
-                                <i data-lucide="star" size="18" fill="var(--text-gold)"></i>
+                    <div class=""testimonial-card"">
+                        <div class=""t-content"">
+                            <div class=""t-stars"">
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
+                                <i data-lucide=""star"" size=""18"" fill=""var(--text-gold)""></i>
                             </div>
-                            <div class="t-title">Over Delivered</div>
-                            <p class="t-text">"Wow! That's what I can say after working with Facundo. He under promised but over delivered. He added some modules to my existing blueprint that I didn't realized possible. He really knows his craft when it comes to automation and coding. You are a gem! I am a very happy client."</p>
+                            <div class=""t-title"">Over Delivered</div>
+                            <p class=""t-text"">""Wow! That's what I can say after working with Facundo. He under promised but over delivered. He added some modules to my existing blueprint that I didn't realized possible. He really knows his craft when it comes to automation and coding. You are a gem! I am a very happy client.""</p>
                         </div>
                     </div>
 
@@ -643,73 +643,73 @@
             </div>
         </section>
 
-        <section id="download" class="download-section">
-            <div class="download-grid">
+        <section id=""download"" class=""download-section"">
+            <div class=""download-grid"">
                 
-                <div class="download-content">
-                    <h2 style="line-height: 1.2;">Instala el Blueprint</h2>
-                    <p style="margin-top: 10px; color: #888;">Sigue estos pasos para importar el sistema:</p>
+                <div class=""download-content"">
+                    <h2 style=""line-height: 1.2;"">Instala el Blueprint</h2>
+                    <p style=""margin-top: 10px; color: #888;"">Sigue estos pasos para importar el sistema:</p>
                     
-                    <div class="download-steps">
-                        <div class="d-step">
-                            <div class="d-number">1</div>
-                            <div>Dale click al botón "Descargar sistema".</div>
+                    <div class=""download-steps"">
+                        <div class=""d-step"">
+                            <div class=""d-number"">1</div>
+                            <div>Dale click al botón ""Descargar sistema"".</div>
                         </div>
-                        <div class="d-step">
-                            <div class="d-number">2</div>
+                        <div class=""d-step"">
+                            <div class=""d-number"">2</div>
                             <div>Crea un escenario en n8n.</div> 
                         </div>
-                        <div class="d-step">
-                            <div class="d-number">3</div>
+                        <div class=""d-step"">
+                            <div class=""d-number"">3</div>
                             <div>Haz click en los 3 puntos en la esquina superior derecha.</div>
                         </div>
-                        <div class="d-step">
-                            <div class="d-number">4</div>
-                            <div>Selecciona <strong>"Import from File"</strong> y carga el archivo descargado.</div>
+                        <div class=""d-step"">
+                            <div class=""d-number"">4</div>
+                            <div>Selecciona <strong>""Import from File""</strong> y carga el archivo descargado.</div>
                         </div>
                     </div>
 
-                    <a href="#" id="downloadBtn" class="btn btn-primary">
+                    <a href=""#"" id=""downloadBtn"" class=""btn btn-primary"">
                         Descargar sistema
                     </a>
                 </div>
 
-                <div class="download-visual">
-                    <img src="tutorial.png" alt="Tutorial de importación">
+                <div class=""download-visual"">
+                    <img src=""tutorial.png"" alt=""Tutorial de importación"">
                 </div>
 
             </div>
         </section>
 
-        <div style="text-align: center; margin: 100px 0 60px;">
-            <h2 style="margin-bottom: 20px; font-size: 2.2rem;">
-                ¿Cansado de que tu negocio <span class="text-gold">siga dependiendo de ti?</span>
+        <div style=""text-align: center; margin: 100px 0 60px;"">
+            <h2 style=""margin-bottom: 20px; font-size: 2.2rem;"">
+                ¿Cansado de que tu negocio <span class=""text-gold"">siga dependiendo de ti?</span>
             </h2>
             
-            <p style="max-width: 1000px; margin: 0 auto; font-size: 1.1rem; color: var(--text-gray);">
+            <p style=""max-width: 1000px; margin: 0 auto; font-size: 1.1rem; color: var(--text-gray);"">
                 Deja de operar y empieza a dirigir. Creamos sistemas que le permiten a tu negocio escalar sin ti mientras tu equipo ejecuta con precisión. Agenda una llamada para analizar cómo podemos aplicarlos en tu negocio.
             </p>
         </div>
 
-        <section id="booking" class="cal-section">
-            <div class="cal-wrapper">
-                <div style="width:100%;height:100%;overflow:hidden !important" id="my-cal-inline-llamada-de-diagnostico"></div>
-                <script type="text/javascript">
-                (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-                Cal("init", "llamada-de-diagnostico", {origin:"https://app.cal.com"});
-                Cal.ns["llamada-de-diagnostico"]("inline", {
-                    elementOrSelector:"#my-cal-inline-llamada-de-diagnostico",
-                    config: {"layout":"month_view","theme":"dark"},
-                    calLink: "facundo-cortines/llamada-de-diagnostico",
+        <section id=""booking"" class=""cal-section"">
+            <div class=""cal-wrapper"">
+                <div style=""width:100%;height:100%;overflow:hidden !important"" id=""my-cal-inline-llamada-de-diagnostico""></div>
+                <script type=""text/javascript"">
+                (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement(""script"")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === ""string""){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, [""initNamespace"", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, ""https://app.cal.com/embed/embed.js"", ""init"");
+                Cal(""init"", ""llamada-de-diagnostico"", {origin:""https://app.cal.com""});
+                Cal.ns[""llamada-de-diagnostico""](""inline"", {
+                    elementOrSelector:""#my-cal-inline-llamada-de-diagnostico"",
+                    config: {""layout"":""month_view"",""theme"":""dark""},
+                    calLink: ""facundo-cortines/llamada-de-diagnostico"",
                 });
-                Cal.ns["llamada-de-diagnostico"]("ui", {"theme":"dark","cssVarsPerTheme":{"light":{"cal-brand":"#292929"},"dark":{"cal-brand":"#ffedc6"}},"hideEventTypeDetails":false,"layout":"month_view"});
+                Cal.ns[""llamada-de-diagnostico""](""ui"", {""theme"":""dark"",""cssVarsPerTheme"":{""light"":{""cal-brand"":""#292929""},""dark"":{""cal-brand"":""#ffedc6""}},""hideEventTypeDetails"":false,""layout"":""month_view""});
                 </script>
             </div>
         </section>
 
     </div>
 
-    <footer style="border-top: 1px solid #1a1a1a; padding: 40px 0; text-align: center; font-size: 0.85rem; color: #444;">
+    <footer style=""border-top: 1px solid #1a1a1a; padding: 40px 0; text-align: center; font-size: 0.85rem; color: #444;"">
         <p>© 2025 Facundo Cortines.</p>
     </footer>
 
@@ -739,7 +739,7 @@
             const currentScale = startScale - (progress * (startScale - endScale));
             const currentY = 0 - (progress * 50); 
 
-            card.style.transform = `perspective(1000px) rotateX(${currentRotate}deg) scale(${currentScale}) translateY(${currentY}px)`;
+            card.style.transform = perspective(1000px) rotateX(${currentRotate}deg) scale(${currentScale}) translateY(${currentY}px);
         }
 
         window.addEventListener('scroll', () => {
@@ -761,14 +761,14 @@
 
         function nextSlide() {
             currentSlide++;
-            track.style.transition = `transform ${transitionTime}ms ease-in-out`;
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            track.style.transition = transform ${transitionTime}ms ease-in-out;
+            track.style.transform = translateX(-${currentSlide * 100}%);
 
             if (currentSlide === slides.length) {
                 setTimeout(() => {
                     track.style.transition = 'none';
                     currentSlide = 0;
-                    track.style.transform = `translateX(0)`;
+                    track.style.transform = translateX(0);
                 }, transitionTime);
             }
         }
@@ -787,10 +787,10 @@
             if (hostname.includes('github.io') && pathSegments.length > 0) {
                 const user = hostname.split('.')[0];
                 const repo = pathSegments[0];
-                const apiUrl = `https://api.github.com/repos/${user}/${repo}/contents/`;
+                const apiUrl = https://api.github.com/repos/${user}/${repo}/contents/;
 
                 try {
-                    downloadBtn.textContent = "Buscando sistema...";
+                    downloadBtn.textContent = ""Buscando sistema..."";
                     const response = await fetch(apiUrl);
                     const data = await response.json();
 
@@ -798,10 +798,10 @@
                         // 1. BLUEPRINT DOWNLOAD
                         const jsonFile = data.find(file => file.name.endsWith('.json'));
                         if (jsonFile) {
-                            downloadBtn.textContent = "Descargar sistema";
+                            downloadBtn.textContent = ""Descargar sistema"";
                             downloadBtn.addEventListener('click', async (e) => {
                                 e.preventDefault();
-                                downloadBtn.textContent = "Descargando...";
+                                downloadBtn.textContent = ""Descargando..."";
                                 try {
                                     const rawRes = await fetch(jsonFile.download_url);
                                     const blob = await rawRes.blob();
@@ -813,14 +813,14 @@
                                     a.click();
                                     window.URL.revokeObjectURL(url);
                                     document.body.removeChild(a);
-                                    downloadBtn.textContent = "Descargar sistema";
+                                    downloadBtn.textContent = ""Descargar sistema"";
                                 } catch (err) {
-                                    console.error("Error descargando blob:", err);
-                                    downloadBtn.textContent = "Error";
+                                    console.error(""Error descargando blob:"", err);
+                                    downloadBtn.textContent = ""Error"";
                                 }
                             });
                         } else {
-                            downloadBtn.textContent = "Error: No encontrado";
+                            downloadBtn.textContent = ""Error: No encontrado"";
                             downloadBtn.classList.add('btn-disabled');
                         }
 
@@ -835,15 +835,15 @@
                         }
                     }
                 } catch (error) {
-                    console.error("Error consultando GitHub API:", error);
-                    downloadBtn.textContent = "Error de carga";
+                    console.error(""Error consultando GitHub API:"", error);
+                    downloadBtn.textContent = ""Error de carga"";
                 }
             } else {
                 // Fallback para local
-                downloadBtn.href = "blueprint.json"; 
+                downloadBtn.href = ""blueprint.json""; 
                 downloadBtn.setAttribute('download', 'blueprint.json');
             }
         });
     </script>
 </body>
-</html>
+</html>"
