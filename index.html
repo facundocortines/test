@@ -16,9 +16,9 @@
         :root {
             --bg-color: #000000;
             --card-bg: #080808;
-            --text-gold: #ffedc6;       
+            --text-gold: #ffedc6;        
             --text-white: #ffffff;
-            --text-gray: #888888;       
+            --text-gray: #888888;        
             --accent-green: #00FF94;    
             
             /* EFECTOS */
@@ -163,7 +163,7 @@
         .scroll-card-3d {
             width: 90%;
             max-width: 1200px; 
-            height: auto;           
+            height: auto;            
             aspect-ratio: 16/9;    
             min-height: 500px;    
             background: #111;
@@ -177,6 +177,13 @@
             will-change: transform;
             display: flex;
             flex-direction: column;
+
+            /* --- FIX PARA MAC/WEBKIT --- */
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translate3d(0, 0, 0); 
         }
 
         .browser-header {
